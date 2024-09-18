@@ -2,9 +2,9 @@
 {
     public class Tecnicos
     {
-        public int userID {  get; set; }
-        public string nombre {  get; set; }
-        public required string apellidos { get; set; }
+        public required int IDTecnico {  get; set; }
+        public string Nombre {  get; set; }
+        public required string Domicilio { get; set; }
 
     }
 }

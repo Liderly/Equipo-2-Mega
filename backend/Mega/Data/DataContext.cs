@@ -16,6 +16,7 @@ public class DataContext : DbContext
 
     public DbSet<Tecnicos> Tecnicos { get; set; }
     public DbSet<Clientes> Clientes { get; set; }
+    public DbSet<OrdenTrabajo> OrdenTrabajos { get; set; }
 
     //Connection string
 

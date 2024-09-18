@@ -1,5 +1,5 @@
 using Mega.Data;
-using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Models.Entities;
@@ -18,7 +18,12 @@ namespace Mega.Controllers
         [Route("{idTecnico}")]
         public async Task<ActionResult<Tecnicos>> GetTecnicos(int idTecnico)
         {
-            var tecnico = await _context.Tecnicos.FirstOrDefaultAsync(tecnicos => tecnicos.userID == idTecnico);
+            var tecnico = await _context.Tecnicos.FirstOrDefaultAsync(tecnicos => tecnicos.IDTecnico == idTecnico);
+
+            if(tecnico is null)
+            {
+                return NotFound("tecnico no encontrado");
+            }
             return Ok(tecnico);
         }
     }
