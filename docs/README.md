@@ -22,4 +22,5 @@ Aplicacion web que pueden usar en sus celulares la cual genera una orden de trab
 
 ## Imagenes del Proyecto
 ![1](../backend/Mega/public/dbe-rdiagram.PNG)
-
+![2](../backend/Mega/public/dbe.png)
+![3](../backend/Mega/public/endopoints-api.PNG)
