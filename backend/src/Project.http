@@ -1,6 +1,0 @@
-@Project_HostAddress = "Insert address"
-
-GET {{Project_HostAddress}}
-Accept: application/json
-
-###
