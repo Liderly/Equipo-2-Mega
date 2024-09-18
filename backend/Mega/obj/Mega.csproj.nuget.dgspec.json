@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jamontanor\\Documents\\Code_Programs\\Liderly\\backend\\Mega\\Mega.csproj": {}
+    "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jamontanor\\Documents\\Code_Programs\\Liderly\\backend\\Mega\\Mega.csproj": {
+    "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jamontanor\\Documents\\Code_Programs\\Liderly\\backend\\Mega\\Mega.csproj",
+        "projectUniqueName": "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj",
         "projectName": "Mega",
-        "projectPath": "C:\\Users\\jamontanor\\Documents\\Code_Programs\\Liderly\\backend\\Mega\\Mega.csproj",
-        "packagesPath": "C:\\Users\\jamontanor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jamontanor\\Documents\\Code_Programs\\Liderly\\backend\\Mega\\obj\\",
+        "projectPath": "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj",
+        "packagesPath": "C:\\Users\\arpinedag\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jamontanor\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\arpinedag\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -44,6 +44,16 @@
           "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.8, )"
             },
