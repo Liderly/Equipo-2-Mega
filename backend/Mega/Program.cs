@@ -10,12 +10,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
-
+//DB context conn
 builder.Services.AddDbContext<DataContext>(options => 
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
 
 
 var app = builder.Build();

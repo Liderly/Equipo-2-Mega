@@ -1,4 +1,5 @@
 using System;
+using Mega.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Project.Models.Entities;
 
@@ -14,8 +15,7 @@ public class DataContext : DbContext
     }
 
     public DbSet<Tecnicos> Tecnicos { get; set; }
-
-    //public DbSet<Trabajo> Trabajos { get; set; }
+    public DbSet<Clientes> Clientes { get; set; }
 
     //Connection string
 
