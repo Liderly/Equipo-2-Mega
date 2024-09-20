@@ -13,6 +13,11 @@ namespace Mega.Controllers
         
         //Data Context
         private readonly DataContext _context;
+
+        public TecnicoController(DataContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
             
         [HttpGet]
         [Route("{idTecnico}")]
