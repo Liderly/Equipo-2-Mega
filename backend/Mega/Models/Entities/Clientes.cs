@@ -1,7 +1,9 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mega.Models.Entities;
 
+[Keyless]
 public class Clientes
 {
         public required int IDCliente {  get; set; }

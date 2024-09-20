@@ -1,5 +1,8 @@
-﻿namespace Project.Models.Entities
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Project.Models.Entities
 {
+    [Keyless]
     public class Cuadrillas
     {
         public int Id {  get; set; }
