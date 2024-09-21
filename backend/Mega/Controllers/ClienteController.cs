@@ -12,13 +12,18 @@ namespace Mega.Controllers
         //Data Context
         private readonly DataContext _context;
 
+        public ClienteController(DataContext context)
+        {
+            _context = context;
+        }
+
 
         //GET Method - single Cliente
         [HttpGet]
         [Route("{idCliente}")]
         public async Task<ActionResult<Clientes>> GetClientes(int idCliente)
         {
-            var cliente = await _context.Clientes.FirstOrDefaultAsync(clien => clien.IDCliente == idCliente);
+            var cliente = await _context.Cliente.FirstOrDefaultAsync(clien => clien.IDCliente == idCliente);
             return Ok(cliente);
         }
 
@@ -26,7 +31,7 @@ namespace Mega.Controllers
         [HttpPost]
         public async Task<ActionResult<Clientes>> PostUser(Clientes cliente)
         {
-            _context.Clientes.Add(cliente);
+            _context.Cliente.Add(cliente);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetClientes),
@@ -35,13 +40,13 @@ namespace Mega.Controllers
             );
         }
 
-                //DELETE
+        //DELETE
         [HttpDelete("{idCliente}")]
         public async Task<ActionResult<Clientes>> DeleteUser(int idCliente)
         {
-            var myUser = await _context.Clientes.FindAsync(idCliente);
+            var myUser = await _context.Cliente.FindAsync(idCliente);
 
-            _context.Clientes.Remove(myUser);
+            _context.Cliente.Remove(myUser);
             await _context.SaveChangesAsync();
 
             return Ok("User was deleted.");

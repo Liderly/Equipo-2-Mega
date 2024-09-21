@@ -1,6 +1,5 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-
 namespace Mega.Models.Entities;
 
 [Keyless]
