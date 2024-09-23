@@ -10,7 +10,6 @@ namespace Mega.Controllers
     [ApiController]
     public class TecnicoController : ControllerBase
     {
-        
         //Data Context
         private readonly DataContext _context;
 
