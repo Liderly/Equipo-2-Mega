@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj": {}
+    "C:\\Users\\julie\\oneDrive\\Escritorio\\EJ.Hackathon\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj": {
+    "C:\\Users\\julie\\oneDrive\\Escritorio\\EJ.Hackathon\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj",
+        "projectUniqueName": "C:\\Users\\julie\\oneDrive\\Escritorio\\EJ.Hackathon\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj",
         "projectName": "Mega",
-        "projectPath": "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj",
-        "packagesPath": "C:\\Users\\arpinedag\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arpinedag\\Documents\\Hackaton\\Equipo-2-Mega\\backend\\Mega\\obj\\",
+        "projectPath": "C:\\Users\\julie\\oneDrive\\Escritorio\\EJ.Hackathon\\Equipo-2-Mega\\backend\\Mega\\Mega.csproj",
+        "packagesPath": "C:\\Users\\julie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julie\\oneDrive\\Escritorio\\EJ.Hackathon\\Equipo-2-Mega\\backend\\Mega\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\arpinedag\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\julie\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -93,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
