@@ -50,6 +50,61 @@ BEGIN
     SET @Contador = @Contador + 1
 END
 GO
+
+
+-- Crear tablas temporales para nombres y apellidos
+DECLARE @Nombres TABLE (Nombre NVARCHAR(100))
+DECLARE @ApellidosTable TABLE (Apellido NVARCHAR(200))
+
+-- Insertar nuevos nombres
+INSERT INTO @Nombres VALUES 
+('Pablo'), ('Sofía'), ('Diego'), ('Valentina'), ('Andrés'), 
+('Daniela'), ('Luis'), ('Fernanda'), ('Mateo'), ('Camila')
+
+-- Insertar nuevos apellidos
+INSERT INTO @ApellidosTable VALUES 
+('Fernández'), ('Castillo'), ('Herrera'), ('Morales'), ('Delgado'), 
+('Castro'), ('Peña'), ('Romero'), ('Ortiz'), ('Navarro')
+
+-- Obtener el número total de registros actuales en la tabla Tecnicos
+DECLARE @TotalExistentes INT
+SELECT @TotalExistentes = COUNT(*) FROM Tecnicos
+
+-- Configurar el contador para que inicie después del último técnico existente
+DECLARE @Contador INT = @TotalExistentes + 1  -- El siguiente número de empleado
+DECLARE @TotalRegistros INT = 10  -- Número de técnicos que deseas agregar
+
+-- Bucle para insertar nuevos técnicos
+WHILE @Contador <= (@TotalExistentes + @TotalRegistros)
+BEGIN
+    -- Declarar variables dentro del ciclo para que estén disponibles
+    DECLARE @Nombre NVARCHAR(100), @Apellidos NVARCHAR(200)
+
+    -- Seleccionar un nombre y apellido aleatorio
+    SELECT TOP 1 @Nombre = Nombre FROM @Nombres ORDER BY NEWID()
+    SELECT TOP 1 @Apellidos = Apellido FROM @ApellidosTable ORDER BY NEWID()
+    
+    -- Definir el número de empleado, asegurando que sea único
+    DECLARE @NoEmpleado INT = @Contador + 1000  -- Asumimos que quieres continuar con la numeración a partir de 1001
+
+    -- Insertar un nuevo registro en la tabla Tecnicos
+    INSERT INTO Tecnicos (Nombre, Apellidos, NoEmpleado, IDCuadrilla)
+    VALUES (
+        @Nombre,
+        @Apellidos,
+		@NoEmpleado,
+        CAST(RAND() * 10 + 1 AS INT)  -- Asignar a una cuadrilla aleatoria entre 1 y 10
+		)
+		
+    -- Incrementar el contador
+    SET @Contador = @Contador + 1
+END
+GO
+
+-- Verificar los registros insertados
+SELECT * FROM Tecnicos;
+
+
 -- Verificar los registros insertados
 SELECT * FROM Tecnicos
 
