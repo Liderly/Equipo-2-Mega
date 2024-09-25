@@ -14,7 +14,7 @@ namespace Mega.Controllers
 
         public ClienteController(DataContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         //GET Method - all Cliente
