@@ -1,0 +1,71 @@
+<div class="bg-gray-100 min-h-screen p-4 flex flex-col">
+    <div class="max-w-4xl mx-auto flex-grow">
+        <!-- Espacio para imagen -->
+        <div class="mb-4 flex justify-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMxsTFHLeDdKkw1dUbHVAsTR4ujDpSxGLUEQ&s"
+                alt="Logo de la empresa" class="rounded-lg shadow-md" />
+        </div>
+        <!-- Información del empleado y botón de órdenes -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4 flex justify-between items-center">
+            <div>
+                <h2 class="text-2xl font-bold">Juan Pérez</h2>
+                <p class="text-gray-600">N° de empleado: 12345</p>
+            </div>
+            <div>
+                <button (click)="toggleOrders()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600 transition">
+                    Órdenes
+                </button>
+            </div>
+        </div>
+        <!-- Área de órdenes desplegable -->
+        <div *ngIf="showOrders" class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <h3 class="text-xl font-semibold mb-2">Órdenes Recientes</h3>
+            <ul class="space-y-4">
+                <li *ngFor="let order of orders; let i = index" class="border-b pb-2">
+                    <div class="flex justify-between items-center cursor-pointer" (click)="toggleOrderDetails(i)">
+                        <span>Orden #{{ order.id }} - {{ order.status }}</span>
+                        <i class="fas"
+                            [ngClass]="{'fa-chevron-down': !order.showDetails, 'fa-chevron-up': order.showDetails}"></i>
+                    </div>
+                    <div *ngIf="order.showDetails" class="mt-2 pl-4">
+                        <p><strong>Fecha:</strong> {{ order.date }}</p>
+                        <p><strong>Servicio:</strong> {{ order.service }}</p>
+                        <p><strong>Trabajo:</strong> {{ order.work }}</p>
+                        <p><strong>Estatus:</strong> {{ order.status }}</p>
+                        <p><strong>Cliente:</strong> {{ order.client }}</p>
+                        <p><strong>Teléfono:</strong> {{ order.phone }}</p>
+                        <p>
+                            <strong>Dirección:</strong> {{ order.address }}
+                            <a [href]="'https://www.google.com/maps/search/?api=1&query=' + order.address"
+                                target="_blank" class="ml-2 text-blue-500 hover:underline">
+                                <i class="fas fa-map-marker-alt"></i> Ver en Google Maps
+                            </a>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Dashboard cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div *ngFor="let card of dashboardCards" [class]="card.color + ' rounded-lg shadow-md p-4'">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 mr-4">
+                        <i [class]="'fas ' + card.icon + ' text-2xl text-white'"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-white text-sm font-semibold">{{ card.title }}</h5>
+                        <h3 class="text-white text-2xl font-bold">{{ card.value }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Botón de salir centrado en la parte inferior -->
+    <div class="mt-8 flex justify-center">
+        <button (click)="Logout()"
+            class="bg-red-500 text-white px-6 py-3 rounded hover:bg-red-600 transition text-lg font-semibold">
+            Salir
+        </button>
+    </div>
+</div>
