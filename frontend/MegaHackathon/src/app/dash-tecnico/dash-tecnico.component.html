@@ -24,7 +24,21 @@
             <ul class="space-y-4">
                 <li *ngFor="let order of orders; let i = index" class="border-b pb-2">
                     <div class="flex justify-between items-center cursor-pointer" (click)="toggleOrderDetails(i)">
-                        <span>Orden #{{ order.id }} - {{ order.status }}</span>
+                        <span class="flex items-center">
+                            <span class="w-2 h-2 rounded-full mr-2" [ngClass]="{
+                                    'bg-red-500': order.status === 'Cancelada',
+                                    'bg-yellow-500': order.status === 'Pendiente',
+                                    'bg-green-500': order.status === 'Completada',
+                                    'bg-orange-500': order.status === 'En proceso'
+                                }"></span>
+                            Orden #{{ order.id }} -
+                            <span [ngClass]="{
+                                'text-red-500': order.status === 'Cancelada',
+                                'text-yellow-500': order.status === 'Pendiente',
+                                'text-green-500': order.status === 'Completada',
+                                'text-orange-500': order.status === 'En proceso'
+                            }">{{ order.status }}</span>
+                        </span>
                         <i class="fas"
                             [ngClass]="{'fa-chevron-down': !order.showDetails, 'fa-chevron-up': order.showDetails}"></i>
                     </div>
