@@ -17,7 +17,17 @@ namespace Mega.Controllers
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-            
+        
+
+        //GET Method - All Tecnicos
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Tecnicos>>> GetAllTecnicos()
+        {
+            var allTecnicos = await _context.Tecnicos.ToListAsync();
+            return Ok(allTecnicos);
+        }
+
+        //GET Method - single Tecnico
         [HttpGet]
         [Route("{idTecnico}")]
         public async Task<ActionResult<Tecnicos>> GetTecnicos(int idTecnico)
@@ -29,6 +39,19 @@ namespace Mega.Controllers
                 return NotFound("tecnico no encontrado");
             }
             return Ok(tecnico);
+        }
+
+        //POST Method - Create Tecnico
+        [HttpPost]
+        public async Task<ActionResult<Tecnicos>> PostTecnico(Tecnicos tecnico)
+        {
+            _context.Tecnicos.Add(tecnico);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetTecnicos), //endpoint name
+                new { IDTecnico = tecnico.IDTecnico}, //anon obj def for needed id
+                tecnico //the entire obj just created
+            );
         }
     }
 }
