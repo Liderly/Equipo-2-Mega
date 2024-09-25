@@ -58,11 +58,26 @@ IDEstatus INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 EstatusTrabajo NVARCHAR(50)
 )
 GO
+SELECT *FROM Estatus
+
+CREATE TABLE Bono(
+IDBono INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+Pago INT NOT NULL,
+)
+GO
+
+CREATE TABLE Rango(
+ RangoIn INT NOT NULL,
+ RangoFin INT,
+ IDBono INT,
+ FOREIGN KEY (IDBono) REFERENCES Bono (IDBono),
+)
+GO
 -- Ahora crea la tabla OrdenTrabajo
 CREATE TABLE OrdenTrabajo (
     IDOrden INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     FechaInicio DATETIME DEFAULT GETDATE(),
-    IDEstatus NVARCHAR(50),
+    IDEstatus INT,
     IDCuadrilla INT,
     IDCliente INT,
     IDTrabajo INT,
@@ -71,5 +86,6 @@ CREATE TABLE OrdenTrabajo (
     FOREIGN KEY (IDCliente) REFERENCES Cliente (IDCliente),
     FOREIGN KEY (IDTrabajo) REFERENCES Trabajo (IDTrabajo),
 	FOREIGN KEY (IDServicio) REFERENCES Servicio (IDServicio),
+	FOREIGN KEY (IDEstatus) REFERENCES Estatus (IDEstatus),
 );
 GO
