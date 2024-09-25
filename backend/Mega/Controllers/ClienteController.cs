@@ -17,6 +17,14 @@ namespace Mega.Controllers
             _context = context;
         }
 
+        //GET Method - all Cliente
+        [HttpGet]
+        //[Route("")]
+        public async Task<ActionResult<IEnumerable<Clientes>>> GetAllClients()
+        {
+            var allClients = await _context.Cliente.ToListAsync();
+            return Ok(allClients);
+        }
 
         //GET Method - single Cliente
         [HttpGet]
@@ -50,9 +58,7 @@ namespace Mega.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("User was deleted.");
-
         }
-
 
     }
 }
