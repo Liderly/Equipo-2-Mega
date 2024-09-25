@@ -123,6 +123,21 @@ VALUES
 ('Instalación de servicio',1);
 GO
 
+--PARA EL BONO
+INSERT INTO Bono
+VALUES
+(0),(300),(500),(650);
+GO
+SELECT *FROM Bono
+
+
+
+--PARA EL RANGO
+INSERT INTO Rango
+VALUES
+(0,80,1),(81,150,2),(151,210,3), (210,NULL,4);
+GO
+SELECT *FROM Rango
 
 --PARA EL SERVICIO
 INSERT INTO Servicio 
@@ -147,4 +162,51 @@ VALUES
 
 
 --PARA LA ORDEN DE TRABAJO
+INSERT INTO OrdenTrabajo (IDEstatus, IDCuadrilla, IDCliente, IDTrabajo, IDServicio)
+VALUES (2, 5, 3, 2, 6),
+       (1, 1, 8, 3, 2),
+       (3, 9, 2, 1, 5),
+       (4, 2, 5, 4, 7),
+       (1, 7, 6, 3, 8),
+       (2, 4, 1, 2, 3),
+       (3, 8, 10, 4, 1),
+       (1, 6, 4, 1, 4),
+       (4, 10, 9, 3, 6),
+       (2, 3, 7, 2, 8),
+       (1, 5, 2, 4, 7),
+       (3, 9, 6, 1, 3),
+       (4, 10, 4, 3, 5),
+       (2, 1, 8, 2, 1),
+       (3, 7, 10, 4, 6),
+       (1, 6, 5, 3, 2),
+       (4, 2, 9, 1, 4),
+       (2, 3, 3, 2, 7),
+       (3, 4, 1, 4, 8),
+       (1, 8, 7, 3, 5);
 
+ SELECT *FROM OrdenTrabajo
+
+
+
+
+
+
+
+
+
+--para limpiar registros 
+
+DELETE FROM OrdenTrabajo;
+DELETE FROM Tecnicos;
+DELETE FROM Cuadrillas;
+DELETE FROM Trabajo;
+DELETE FROM Servicio;
+DELETE FROM Estatus;
+
+-- Reiniciar los identity de las tablas
+DBCC CHECKIDENT ('OrdenTrabajo', RESEED, 0);
+DBCC CHECKIDENT ('Tecnicos', RESEED, 0);
+DBCC CHECKIDENT ('Cuadrillas', RESEED, 0);
+DBCC CHECKIDENT ('Trabajo', RESEED, 0);
+DBCC CHECKIDENT ('Servicio', RESEED, 0);
+DBCC CHECKIDENT ('Estatus', RESEED, 0);
