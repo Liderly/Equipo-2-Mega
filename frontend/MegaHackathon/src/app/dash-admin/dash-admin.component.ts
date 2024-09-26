@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { HeaderComponent } from '../header/header.component';
+import { SidebarComponent } from '../side-board/side-board.component';
 
 interface StatisticCard {
   title: string;
@@ -23,7 +24,7 @@ interface RecentActivity {
 @Component({
   selector: 'app-dash-admin',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, SidebarComponent],
   templateUrl: './dash-admin.component.html',
   styleUrl: './dash-admin.component.css'
 })
