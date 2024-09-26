@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { HeaderComponent } from '../header/header.component';
+
 interface StatisticCard {
   title: string;
   value: number;
@@ -21,11 +23,11 @@ interface RecentActivity {
 @Component({
   selector: 'app-dash-admin',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent],
   templateUrl: './dash-admin.component.html',
   styleUrl: './dash-admin.component.css'
 })
-   
+
 export class DashAdminComponent implements OnInit {
   statisticCards: StatisticCard[] = [
     {
