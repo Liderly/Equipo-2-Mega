@@ -1,2 +1,5 @@
-#backend bin
-/backend/Mega/bin
+#backend bin and obj directories
+backend/Mega/bin
+backend/Mega/obj
+backend/Mega/appsettings.Development.json
+backend/Mega/appsettings.json
