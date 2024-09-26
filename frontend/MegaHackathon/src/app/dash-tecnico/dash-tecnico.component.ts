@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
+import { HeaderComponent } from "../header/header.component"
+
 interface Order {
   id: string;
   status: string;
@@ -18,7 +20,7 @@ interface Order {
   selector: 'app-dash-tecnico',
   templateUrl: './dash-tecnico.component.html',
   styleUrls: ['./dash-tecnico.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
   standalone: true
 })
 export class DashTecnicoComponent {
