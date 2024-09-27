@@ -15,6 +15,7 @@ public class DataContext : DbContext
     public DbSet<Clientes> Cliente { get; set; } //'Cliente' es el designado en BD
     public DbSet<OrdenTrabajo> OrdenTrabajos { get; set; }
     public DbSet<TecnicoReport> TecnicoReport { get; set; }
+    public DbSet<CuadrillaReport> CuadrillaReports { get; set; }
 
     //Connection string
 
@@ -22,6 +23,7 @@ public class DataContext : DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TecnicoReport>().HasNoKey(); // TecnicoReport class is keyless (noes table)
+        modelBuilder.Entity<CuadrillaReport>().HasNoKey(); //keyless entity
     }
 
   }

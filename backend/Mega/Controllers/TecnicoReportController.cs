@@ -17,6 +17,11 @@ namespace Mega.Controllers
         }
 
         //GET this tecnico
+        /// <summary>
+        /// Retrieve this week report for specified tecnico by its Id
+        /// </summary>
+        /// <param name="idTecnico"></param>
+        /// <returns>Returns all OTs from specific tecnico</returns>
         [HttpGet]
         [Route("{idTecnico}")]
         public async Task<ActionResult<IEnumerable<TecnicoReport>>> GetTecnicoReport(int idTecnico)
