@@ -19,18 +19,16 @@ dotnet run
 ```
 
 You'll see on a new line with _url + port_ in which the server is listening (_`Now listening on: http://localhost:5009`_).
-In your prefered browser, access the url and locate on the `Swagger UI`:
+In your prefered browser, access the url:
 
 ```Bash
-http://localhost:5009/swagger
+http://localhost:5009/
 ```
+
+![swagger-api-ui](Mega/public/mega-swagger-ui.png)
 
 ## Database
 
 Database name: `MegaHackathon`
 
-E-R Model of our data base:
-
-![er-image](Mega/public/dbe-rdiagram.PNG)
-
-![endopoints](Mega/public/endopoints-api.PNG)
+For _E-R Model_ of our data base, please refer to: [database files directory](../SQLBDHACKATHON/)
