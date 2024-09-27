@@ -20,6 +20,10 @@ namespace Mega.Controllers
         
 
         //GET Method - All Tecnicos
+        /// <summary>
+        /// Get all tecnicos info
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tecnicos>>> GetAllTecnicos()
         {
@@ -28,6 +32,11 @@ namespace Mega.Controllers
         }
 
         //GET Method - single Tecnico
+        /// <summary>
+        /// Get all tecnico info, specified by their id
+        /// </summary>
+        /// <param name="idTecnico"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{idTecnico}")]
         public async Task<ActionResult<Tecnicos>> GetTecnicos(int idTecnico)
@@ -42,6 +51,11 @@ namespace Mega.Controllers
         }
 
         //POST Method - Create Tecnico
+        /// <summary>
+        /// Create new tecnico registry
+        /// </summary>
+        /// <param name="tecnico"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Tecnicos>> PostTecnico(Tecnicos tecnico)
         {

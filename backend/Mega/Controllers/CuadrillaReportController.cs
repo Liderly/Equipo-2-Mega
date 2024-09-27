@@ -19,6 +19,11 @@ namespace Mega.Controllers
 
 
         //GET cuadrilla report
+        /// <summary>
+        /// Returns work (OTs) done by a specific cuadrilla, and bonus applied
+        /// </summary>
+        /// <param name="idCuadrilla"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{idCuadrilla}")]
         public async Task<ActionResult<IEnumerable<CuadrillaReport>>> GetCuadrillaReport(int idCuadrilla)
@@ -29,7 +34,6 @@ namespace Mega.Controllers
 
             return Ok(cuadrillaRep);
         }
-
 
 
     }

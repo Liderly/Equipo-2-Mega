@@ -13,12 +13,12 @@ public class Clientes
 
         [Required]
         [StringLength(100)]
-        public string Nombre {  get; set; }
+        public string? Nombre {  get; set; }
 
         [StringLength(100)]
         public string? Apellidos {  get; set; }
         
         [Required]
-        public string Domicilio { get; set; }
+        public string? Domicilio { get; set; }
         public required string Telefono { get; set; }
 }

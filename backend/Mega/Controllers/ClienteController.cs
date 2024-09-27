@@ -18,6 +18,10 @@ namespace Mega.Controllers
         }
 
         //GET Method - all Cliente
+        /// <summary>
+        /// Get all clientes info
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         //[Route("")]
         public async Task<ActionResult<IEnumerable<Clientes>>> GetAllClients()
@@ -27,6 +31,11 @@ namespace Mega.Controllers
         }
 
         //GET Method - single Cliente
+        /// <summary>
+        /// Get all cliente info, specific by their id 
+        /// </summary>
+        /// <param name="idCliente"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{idCliente}")]
         public async Task<ActionResult<Clientes>> GetClientes(int idCliente)
@@ -36,6 +45,11 @@ namespace Mega.Controllers
         }
 
         //POST - Create Client
+        /// <summary>
+        /// Create new client registry
+        /// </summary>
+        /// <param name="cliente"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Clientes>> PostUser(Clientes cliente)
         {
@@ -49,6 +63,11 @@ namespace Mega.Controllers
         }
 
         //DELETE
+        /// <summary>
+        /// Permanently delete client
+        /// </summary>
+        /// <param name="idCliente"></param>
+        /// <returns></returns>
         [HttpDelete("{idCliente}")]
         public async Task<ActionResult<Clientes>> DeleteUser(int idCliente)
         {

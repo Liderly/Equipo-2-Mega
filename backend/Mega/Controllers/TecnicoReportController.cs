@@ -18,7 +18,7 @@ namespace Mega.Controllers
 
         //GET this tecnico
         /// <summary>
-        /// Retrieve this week report for specified tecnico by its Id
+        /// Returns this week report for specified tecnico by its Id
         /// </summary>
         /// <param name="idTecnico"></param>
         /// <returns>Returns all OTs from specific tecnico</returns>
