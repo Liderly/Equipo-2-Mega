@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddControllers();
 
 //DB context conn
-builder.Services.AddDbContext<DataContext>(options => 
+builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
@@ -38,12 +38,27 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => {
+    app.UseSwaggerUI(c =>
+    {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "MEGA API"); //'v1' is for speficied 'version' at SwaggerDoc
         c.RoutePrefix = String.Empty; // goto swagger with root uri (escape '/swagger')
     });
 }
 
+//Se agregó el CORS para unirlo al front
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        builder => builder.WithOrigins("http://localhost:4200")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
+
+// ... (más configuraciones)
+
+app.UseCors("AllowAngularApp");
+
+//--------------
 app.UseHttpsRedirection();
 
 app.MapControllers();
