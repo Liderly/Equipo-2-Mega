@@ -7,7 +7,7 @@
  Elaborar un informe detallado para el procesamiento de pagos de puntos acumulados por los técnicos instaladores. Este reporte debe incluir un desglose de las actividades realizadas, los puntos obtenidos por cada 
  tarea completada y cualquier otra información relevante que facilite la revisión y aprobación de los pagos correspondientes
 
-## Requerimientos Tenicos 
+## Requerimientos Tecnicos 
    ## - Base de datos 
        SQL SERVER 
    ## -  Backend
