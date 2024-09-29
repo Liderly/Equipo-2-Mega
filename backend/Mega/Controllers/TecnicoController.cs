@@ -1,5 +1,4 @@
 using Mega.Data;
-//using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Models.Entities;
@@ -18,7 +17,6 @@ namespace Mega.Controllers
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         
-
         //GET Method - All Tecnicos
         /// <summary>
         /// Get all tecnicos info
@@ -33,19 +31,19 @@ namespace Mega.Controllers
 
         //GET Method - single Tecnico
         /// <summary>
-        /// Get all tecnico info, specified by their id
+        /// Get all tecnico info, specified by their 'Numero de empleado'
         /// </summary>
-        /// <param name="idTecnico"></param>
+        /// <param name="numEmpleado"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{idTecnico}")]
-        public async Task<ActionResult<Tecnicos>> GetTecnicos(int idTecnico)
+        [Route("{numEmpleado}")]
+        public async Task<ActionResult<Tecnicos>> GetTecnicos(int numEmpleado)
         {
-            var tecnico = await _context.Tecnicos.FirstOrDefaultAsync(tecnicos => tecnicos.IDTecnico == idTecnico);
+            var tecnico = await _context.Tecnicos.FirstOrDefaultAsync(tecnicos => tecnicos.NoEmpleado == numEmpleado);
 
             if(tecnico is null)
             {
-                return NotFound("tecnico no encontrado");
+                return NotFound("Tecnico no encontrado.");
             }
             return Ok(tecnico);
         }
