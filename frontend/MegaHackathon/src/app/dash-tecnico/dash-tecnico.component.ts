@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { ApiService } from '../services/service'; // service.ts
+
 import { HeaderComponent } from "../header/header.component"
 
 interface Order {
@@ -24,9 +26,10 @@ interface Order {
   standalone: true
 })
 export class DashTecnicoComponent {
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: object) {}
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: object, private usersService: ApiService) {}
 
   user: any;
+  // elValor: any;
 
   private getUserData(): any {
     if(isPlatformBrowser(this.platformId)) {
@@ -39,6 +42,18 @@ export class DashTecnicoComponent {
 
   ngOnInit() {
     this.user = this.getUserData();
+    console.log('lo que vale user.id ===', this.user.idTecnico);
+
+    this.usersService.getTecnicoReport(this.user.idTecnico).subscribe({
+      next: (response) => {
+        console.log('REPSONSE => ', response);
+        this.orders = response;
+        return response;
+      }
+
+    });
+
+
   }
 
   showOrders = false;

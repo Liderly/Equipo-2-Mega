@@ -19,33 +19,33 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getTecnicos(): Observable<any> {
-    //Agregar ruta 
+    //Agregar ruta
     return this.http.get(`${this.apiUrl}/Tecnico`);
   }
 
   getTecnicoById(id: number): Observable<any> {
-    //Agregar ruta 
+    //Agregar ruta
     return this.http.get(`${this.apiUrl}/Tecnico/${id}`);
   }
 
 
   getClientes(): Observable<any> {
-    //Agregar ruta 
+    //Agregar ruta
     return this.http.get(`${this.apiUrl}/Cliente`);
   }
 
   getClienteById(id: number): Observable<any> {
-    //Agregar ruta 
+    //Agregar ruta
     return this.http.get(`${this.apiUrl}/Cliente/${id}`);
   }
 
   getCuadrillas(): Observable<any> {
-    //Agregar ruta 
+    //Agregar ruta
     return this.http.get(`${this.apiUrl}/CuadrillaReport`);
   }
 
   getOrdenTrabajo(): Observable<any> {
-    //Agregar ruta 
+    //Agregar ruta
     return this.http.get(`${this.apiUrl}/Ordentrabajo`);
   }
 
@@ -58,7 +58,9 @@ export class ApiService {
 
   //Tecnico
   getTecnicoReport(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/TecnicoReport/${id}`)
+    //console.log('recibi id - servce ->> ', id);
+
+    return this.http.get(`${this.apiUrl}/tecnicoreport/${id}`)
   }
 
 
@@ -68,9 +70,9 @@ export class ApiService {
 
     let data = this.http.get(`${this.apiUrl}/tecnico/${noEmpleado}`);
 
-    console.log('data es: ', data);
+    //console.log('data es: ', data);
 
-    if(data != null){ 
+    if(data != null){
       return data;
     }
 

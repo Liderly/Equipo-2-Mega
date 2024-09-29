@@ -1,65 +1,160 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Chart, ChartConfiguration, } from 'chart.js/auto';
 
 import { HeaderComponent } from '../header/header.component';
-import { SidebarComponent } from '../side-board/side-board.component';
 
-interface StatisticCard {
-  title: string;
-  value: number;
-  icon: string;
+interface Tecnico {
+  nombreTecnico: string;
+  Cuadrilla: number;
+  TotalPuntosPorTecnico: number;
+  TrabajosCompletados: number;
 }
-
-interface SocialTraffic {
-  platform: string;
-  visitors: number;
-  percentage: number;
-}
-
-interface RecentActivity {
-  user: string;
-  action: string;
-  timestamp: Date;
-}
-
 
 @Component({
-  selector: 'app-dash-admin',
+  selector: 'app-technician-dashboard',
   standalone: true,
-  imports: [HeaderComponent, SidebarComponent],
+  imports: [CommonModule, FormsModule, HeaderComponent],
   templateUrl: './dash-admin.component.html',
-  styleUrl: './dash-admin.component.css'
+  styleUrls: ['./dash-admin.component.css'],
 })
-   
 export class DashAdminComponent implements OnInit {
-  statisticCards: StatisticCard[] = [
-    {
-      title: 'Visitors',
-      value: 1257,
-      icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
-    },
-    // Add more statistic cards
-  ];
+  @ViewChild('performanceChart', { static: true })
+  performanceChartRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('servicesChart', { static: true })
+  servicesChartRef!: ElementRef<HTMLCanvasElement>;
 
-  socialTraffic: SocialTraffic[] = [
-    { platform: 'Facebook', visitors: 5480, percentage: 70 },
-    { platform: 'Twitter', visitors: 3380, percentage: 40 },
-    // Add more social traffic data
-  ];
+  tecnicos: Tecnico[] = [];
+  cuadrillas: number[] = [];
+  selectedCuadrilla: string = '';
+  selectedStatus: string = '';
+  startDate: string = '';
+  endDate: string = '';
 
-  recentActivities: RecentActivity[] = [
-    {
-      user: 'Nick Mark',
-      action: 'mentioned Sara Smith in a new post',
-      timestamp: new Date('2023-09-25T10:30:00')
-    },
-    // Add more recent activities
-  ];
+  averagePoints: number = 0;
+  completionRate: number = 0;
+  totalJobs: number = 0;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    // Fetch real data from a service if needed
+    this.loadData();
+    this.initCharts();
   }
 
-  // Add methods for handling dashboard actions, e.g., refreshData(), viewDetails(item), etc.
+  loadData(): void {
+    // Aquí cargarías los datos reales de tu servicio o API
+    this.tecnicos = [
+      {
+        nombreTecnico: 'Fernando Romero',
+        Cuadrilla: 2,
+        TotalPuntosPorTecnico: 670,
+        TrabajosCompletados: 6,
+      },
+      {
+        nombreTecnico: 'Sofia Castro',
+        Cuadrilla: 2,
+        TotalPuntosPorTecnico: 670,
+        TrabajosCompletados: 6,
+      },
+      {
+        nombreTecnico: 'Andrés Fernández',
+        Cuadrilla: 2,
+        TotalPuntosPorTecnico: 670,
+        TrabajosCompletados: 7,
+      },
+    ];
+
+    this.cuadrillas = [...new Set(this.tecnicos.map((t) => t.Cuadrilla))];
+    this.calculateKPIs();
+  }
+
+  calculateKPIs(): void {
+    this.averagePoints =
+      this.tecnicos.reduce((sum, t) => sum + t.TotalPuntosPorTecnico, 0) /
+      this.tecnicos.length;
+    this.totalJobs = this.tecnicos.reduce(
+      (sum, t) => sum + t.TrabajosCompletados,
+      0
+    );
+    this.completionRate = this.totalJobs / (this.totalJobs + 3); // Asumimos 3 trabajos pendientes para este ejemplo
+  }
+
+  initCharts(): void {
+    this.createPerformanceChart();
+    this.createServicesChart();
+  }
+
+  createPerformanceChart(): void {
+    const ctx = this.performanceChartRef.nativeElement.getContext('2d');
+    if (ctx) {
+      const config: ChartConfiguration<'bar'> = {
+        type: 'bar',
+        data: {
+          labels: this.tecnicos.map((t) => t.nombreTecnico),
+          datasets: [
+            {
+              label: 'Puntos Generados',
+              data: this.tecnicos.map((t) => t.TotalPuntosPorTecnico),
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      };
+      new Chart(ctx, config);
+    }
+  }
+
+  createServicesChart(): void {
+    const ctx = this.servicesChartRef.nativeElement.getContext('2d');
+    if (ctx) {
+      const config: ChartConfiguration<'pie'> = {
+        type: 'pie',
+        data: {
+          labels: [
+            'TELEFONÍA FIJA LIMITADA',
+            'TELEFONÍA MÓVIL PAQUETE 300',
+            'INTERNET RESIDENCIAL 1GB',
+          ],
+          datasets: [
+            {
+              data: [30, 50, 20],
+              backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      };
+      new Chart(ctx, config);
+    }
+  }
+
+  applyFilters(): void {
+    console.log(
+      'Aplicando filtros:',
+      this.selectedCuadrilla,
+      this.selectedStatus,
+      this.startDate,
+      this.endDate
+    );
+  }
+
+  exportData(): void {
+    console.log('Exportando datos...');
+  }
+
+  verDetalles(tecnico: Tecnico): void {
+    console.log('Viendo detalles de:', tecnico.nombreTecnico);
+  }
 }
