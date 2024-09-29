@@ -26,7 +26,7 @@ interface Order {
 export class DashTecnicoComponent {
   constructor(private router: Router) {}
 
-  //private isLocalStorageAvailable = typeof localStorage !== 'undefined';
+  //arreglar local storage error
   user = JSON.parse(localStorage.getItem('userData') || '{}');
 
   showOrders = false;
