@@ -1,6 +1,5 @@
-
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -12,16 +11,20 @@ import { CommonModule } from '@angular/common';
 
 export class HeaderComponent {
 
-  //arreglar local storage error
-  user = JSON.parse(localStorage.getItem('userData') || '{}')
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {};
 
-  OnInit() {
-    const isLocalStorageAvailable = typeof localStorage !== 'undefined';
-    if(isLocalStorageAvailable != null) {
-      const user = localStorage.getItem('userData') || '{}'
-      const obj = JSON.parse(user)
-      console.log(obj);
+  user: any;
+
+  private getUserData(): any {
+    if(isPlatformBrowser(this.platformId)) {
+      const userData = localStorage.getItem('userData');
+      return userData ? JSON.parse(userData) : {};
     }
+    return {};
+  };
+
+  ngOnInit() {
+    this.user = this.getUserData();
   }
 
   onClickProfile(){}  // no hace nada

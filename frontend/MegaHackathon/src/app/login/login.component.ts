@@ -32,7 +32,7 @@ export class LoginComponent {
           this.handleAuthentication(
             response.idTecnico,
             response.nombre,
-            response.apellido,
+            response.apellidos,
             response.noEmpleado,
             response.idCuadrilla
           );
@@ -51,12 +51,12 @@ export class LoginComponent {
   private handleAuthentication(
     idTecnico: number,
     nombre: string,
-    apellido: string,
+    apellidos: string,
     noEmpleado: number,
     idCuadrilla: number
   ) {
     //const expirationDate = new Date(new Date().getTime() + 50 * 1000);
-    const user = {idTecnico, nombre, apellido, noEmpleado, idCuadrilla}
+    const user = {idTecnico, nombre, apellidos, noEmpleado, idCuadrilla}
     localStorage.setItem('userData', JSON.stringify(user))
   }
 

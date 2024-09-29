@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { HeaderComponent } from "../header/header.component"
@@ -24,10 +24,22 @@ interface Order {
   standalone: true
 })
 export class DashTecnicoComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: object) {}
 
-  //arreglar local storage error
-  user = JSON.parse(localStorage.getItem('userData') || '{}');
+  user: any;
+
+  private getUserData(): any {
+    if(isPlatformBrowser(this.platformId)) {
+      const userData = localStorage.getItem('userData');
+      console.log('esta es la user data', userData)
+      return userData ? JSON.parse(userData): {} ;
+    }
+    return {};
+  }
+
+  ngOnInit() {
+    this.user = this.getUserData();
+  }
 
   showOrders = false;
   orders: Order[] = [
@@ -86,6 +98,7 @@ export class DashTecnicoComponent {
 
   toggleOrders() {
     this.showOrders = !this.showOrders;
+    console.log(this.user)
   }
 
   toggleOrderDetails(index: number) {
@@ -95,12 +108,6 @@ export class DashTecnicoComponent {
   Logout() {
     this.router.navigate(['/login']);
   }
-
-  // getData() {
-  //   if(this.isLocalStorageAvailable != null) {
-  //     console.log(localStorage.getItem('userData'));
-  //   }
-  // }
 
 }
 
