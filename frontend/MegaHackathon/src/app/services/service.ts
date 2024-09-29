@@ -14,7 +14,7 @@ import { OrdenTrabajo } from '../interface/ordenTrabajo';
 })
 
 export class ApiService {
-  private apiUrl = 'https://localhost:5009/api'; // Ajusta según tu configuración
+  private apiUrl = 'http://localhost:5009/api'; // Ajusta según tu configuración
 
   constructor(private http: HttpClient) { }
 
@@ -59,6 +59,23 @@ export class ApiService {
   //Tecnico
   getTecnicoReport(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/TecnicoReport/${id}`)
+  }
+
+
+
+  //LOOOOOOOOOOOOOOG
+  login(noEmpleado: string): Observable<any> {
+
+    let data = this.http.get(`${this.apiUrl}/tecnico/${noEmpleado}`);
+
+    console.log('data es: ', data);
+
+    if(data != null){ 
+      return data;
+    }
+
+    //const loginData = { noEmpleado, password }
+    return this.http.get(`${this.apiUrl}/Tecnico/${noEmpleado}`);
   }
 
 
