@@ -21,6 +21,7 @@ interface RecentActivity {
   timestamp: Date;
 }
 
+
 @Component({
   selector: 'app-dash-admin',
   standalone: true,
@@ -28,7 +29,7 @@ interface RecentActivity {
   templateUrl: './dash-admin.component.html',
   styleUrl: './dash-admin.component.css'
 })
-
+   
 export class DashAdminComponent implements OnInit {
   statisticCards: StatisticCard[] = [
     {

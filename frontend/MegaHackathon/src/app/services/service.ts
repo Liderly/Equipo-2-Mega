@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Tecnicos } from "../interface/tecnicos";
-import { Clientes } from '../interface/clientes';
-import { Cuadrillas } from '../interface/cuadrillas';
-import { OrdernTrabajo } from '../interface/ordenTrabajo';
+import { Tecnico } from "../interface/tecnico";
+import { Cliente } from '../interface/clientes';
+import { CuadrillaReport } from '../interface/cuadrillas';
+import { OrdenTrabajo } from '../interface/ordenTrabajo';
 
 
 
@@ -14,27 +14,70 @@ import { OrdernTrabajo } from '../interface/ordenTrabajo';
 })
 
 export class ApiService {
-  private apiUrl = 'https://localhost:5001/api'; // Ajusta según tu configuración
+  private apiUrl = 'http://localhost:5009/api'; // Ajusta según tu configuración
 
   constructor(private http: HttpClient) { }
 
   getTecnicos(): Observable<any> {
     //Agregar ruta 
-    return this.http.get(`${this.apiUrl}/data`);
+    return this.http.get(`${this.apiUrl}/Tecnico`);
   }
+
+  getTecnicoById(id: number): Observable<any> {
+    //Agregar ruta 
+    return this.http.get(`${this.apiUrl}/Tecnico/${id}`);
+  }
+
 
   getClientes(): Observable<any> {
     //Agregar ruta 
-    return this.http.get(`${this.apiUrl}/data`);
+    return this.http.get(`${this.apiUrl}/Cliente`);
+  }
+
+  getClienteById(id: number): Observable<any> {
+    //Agregar ruta 
+    return this.http.get(`${this.apiUrl}/Cliente/${id}`);
   }
 
   getCuadrillas(): Observable<any> {
     //Agregar ruta 
-    return this.http.get(`${this.apiUrl}/data`);
+    return this.http.get(`${this.apiUrl}/CuadrillaReport`);
   }
 
   getOrdenTrabajo(): Observable<any> {
     //Agregar ruta 
-    return this.http.get(`${this.apiUrl}/data`);
+    return this.http.get(`${this.apiUrl}/Ordentrabajo`);
   }
+
+
+  //Reports
+  //Cuadrilla
+  getCuadrillaReport(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/Cuadrillareport/${id}`);
+  }
+
+  //Tecnico
+  getTecnicoReport(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/TecnicoReport/${id}`)
+  }
+
+
+
+  //LOOOOOOOOOOOOOOG
+  login(noEmpleado: string): Observable<any> {
+
+    let data = this.http.get(`${this.apiUrl}/tecnico/${noEmpleado}`);
+
+    console.log('data es: ', data);
+
+    if(data != null){ 
+      return data;
+    }
+
+    //const loginData = { noEmpleado, password }
+    return this.http.get(`${this.apiUrl}/Tecnico/${noEmpleado}`);
+  }
+
+
+
 }

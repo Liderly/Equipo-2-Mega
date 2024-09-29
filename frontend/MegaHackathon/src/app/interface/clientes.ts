@@ -1,8 +1,8 @@
-export interface Clientes {
-    IDCliente: number,
-    NoSubscriptor: number,
-    Nombre: string,
-    Apellidos: string,
-    Domicilio: string,
-    Telefono: string,
+export interface Cliente{
+    idCliente: number,
+    noSubscriptor: number,
+    nombre: string,
+    apellidos: string,
+    domicilio: string,
+    telefono: string,
 }
