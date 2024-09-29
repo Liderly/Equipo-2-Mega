@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 
 export class HeaderComponent {
-  onClickProfile(){}  // no hace nada 
+
+  onClickProfile(){}  // no hace nada
 
   // isDark: boolean = false;
 

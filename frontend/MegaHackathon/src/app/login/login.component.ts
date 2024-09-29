@@ -13,7 +13,7 @@ import { ApiService } from '../services/service'; // service.ts
   imports: [FormsModule]
 })
 export class LoginComponent {
-  
+
   constructor(private router: Router, private http: HttpClient, private usersService: ApiService) {
 
    }
@@ -21,39 +21,43 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  // onSubmit() {
-  //   // this.usersService.getTecnicos().suscribe({
-  //   //   next: (response) => {
-  //   //     console.log('que es response? ', response);
-  //   //   }
-  //   // })
-   
-  //   console.log('Numero de empleado:', this.noEmpleado);
-  //   console.log('Password:', this.password);
-  //   this.router.navigate(['/DashTecnico']);
-  // }
 
-  // login(noEmpleado: number) {
-  //   return this.http.post<any>("url",
-  //     {noEmpleado: noEmpleado}
-  //   ).pipe()
-  // }
   private apiUrl = 'http://localhost:5009/api'; // Ajusta según tu configuración
 
-onSubmit() {
-  this.usersService.login(this.noEmpleado).subscribe({
-    next: (response) => {
-      console.log('Login successful', response);
-      if (response) {
-        this.router.navigate(['/DashTecnico']);
-      } else {
-        console.log('Usuario no encontrado');
+  onSubmit() {
+    this.usersService.login(this.noEmpleado).subscribe({
+      next: (response) => {
+        console.log('Login successful', response);
+        if (response) {
+          this.handleAuthentication(
+            response.idTecnico,
+            response.nombre,
+            response.apellido,
+            response.noEmpleado,
+            response.idCuadrilla
+          );
+          this.router.navigate(['/DashTecnico']);
+        } else {
+          console.log('Usuario no encontrado');
+        }
+      },
+      error: (error) => {
+        console.error('Login error', error);
       }
-    },
-    error: (error) => {
-      console.error('Login error', error);
-    }
-  });
-}
+    });
+  }
+
+  //Guarda login en local storage
+  private handleAuthentication(
+    idTecnico: number,
+    nombre: string,
+    apellido: string,
+    noEmpleado: number,
+    idCuadrilla: number
+  ) {
+    //const expirationDate = new Date(new Date().getTime() + 50 * 1000);
+    const user = {idTecnico, nombre, apellido, noEmpleado, idCuadrilla}
+    localStorage.setItem('userData', JSON.stringify(user))
+  }
 
 }
