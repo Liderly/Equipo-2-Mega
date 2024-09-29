@@ -6,7 +6,7 @@ import { DashAdminComponent } from './dash-admin/dash-admin.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: 'DashTecnico', component: DashTecnicoComponent },
+    { path: 'DashTecnico/:noEmpleado', component: DashTecnicoComponent },
     { path: 'DashAdmin', component: DashAdminComponent},
 
     {path: '', pathMatch:'full', redirectTo:'/login'},

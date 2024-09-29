@@ -36,7 +36,7 @@ export class LoginComponent {
             response.noEmpleado,
             response.idCuadrilla
           );
-          this.router.navigate(['/DashTecnico']);
+          this.router.navigate([`/DashTecnico/:${response.noEmpleado}`]);
         } else {
           console.log('Usuario no encontrado');
         }

@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,6 +12,18 @@ import { CommonModule } from '@angular/common';
 
 export class HeaderComponent {
 
+  //arreglar local storage error
+  user = JSON.parse(localStorage.getItem('userData') || '{}')
+
+  OnInit() {
+    const isLocalStorageAvailable = typeof localStorage !== 'undefined';
+    if(isLocalStorageAvailable != null) {
+      const user = localStorage.getItem('userData') || '{}'
+      const obj = JSON.parse(user)
+      console.log(obj);
+    }
+  }
+
   onClickProfile(){}  // no hace nada
 
   // isDark: boolean = false;
@@ -19,7 +31,7 @@ export class HeaderComponent {
   // constructor() { }
 
   // ngOnInit(): void {
-  //   this.isDark = this.getInitialThe~~~me();
+  //   this.isDark = this.getInitialTheme();
   // }
 
   // toggleTheme(): void {

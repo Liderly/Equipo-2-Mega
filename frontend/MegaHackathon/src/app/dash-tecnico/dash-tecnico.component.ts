@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { HeaderComponent } from "../header/header.component"
 
@@ -26,7 +26,8 @@ interface Order {
 export class DashTecnicoComponent {
   constructor(private router: Router) {}
 
-  private isLocalStorageAvailable = typeof localStorage !== 'undefined';
+  //private isLocalStorageAvailable = typeof localStorage !== 'undefined';
+  user = JSON.parse(localStorage.getItem('userData') || '{}');
 
   showOrders = false;
   orders: Order[] = [
@@ -84,7 +85,6 @@ export class DashTecnicoComponent {
   ];
 
   toggleOrders() {
-    this.getData(),
     this.showOrders = !this.showOrders;
   }
 
@@ -96,11 +96,11 @@ export class DashTecnicoComponent {
     this.router.navigate(['/login']);
   }
 
-  getData() {
-    if(this.isLocalStorageAvailable != null) {
-      console.log(localStorage.getItem('userData'));
-    }
-  }
+  // getData() {
+  //   if(this.isLocalStorageAvailable != null) {
+  //     console.log(localStorage.getItem('userData'));
+  //   }
+  // }
 
 }
 
