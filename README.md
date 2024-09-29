@@ -1,6 +1,6 @@
 
 
-# HACKATON-MEGA 
+# HACKATHON-MEGA 
 
 ## Objetivo
 
