@@ -14,7 +14,7 @@ BEGIN
             SUM(CASE WHEN e.EstatusTrabajo = 'Completada' THEN p.Puntos ELSE 0 END)
                 OVER (PARTITION BY c.NoCuadrilla, t.IDTecnico) AS TotalPuntosPorTecnico,
             e.EstatusTrabajo AS Estatus,
-            cl.NoSuscriptor AS NumSuscriptor,
+            cl.NoSuscriptor AS NumCliente,
             cl.Nombre + ' ' + cl.Apellidos AS NombreSuscriptor,
             ot.FechaInicio AS Fecha
         FROM OrdenTrabajo ot

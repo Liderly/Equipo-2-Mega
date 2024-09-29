@@ -31,6 +31,17 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+// Configurar CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200") // Reemplaza con la URL de tu app Angular
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -45,20 +56,9 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-//Se agregó el CORS para unirlo al front
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngularApp",
-        builder => builder.WithOrigins("http://localhost:4200")
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
-});
-
-// ... (más configuraciones)
 
 app.UseCors("AllowAngularApp");
 
-//--------------
 app.UseHttpsRedirection();
 
 app.MapControllers();

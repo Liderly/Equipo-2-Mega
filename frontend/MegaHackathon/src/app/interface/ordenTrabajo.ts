@@ -1,9 +1,9 @@
-export interface OrdernTrabajo {
-    IDOrden: number,
+export interface OrdenTrabajo {
+    idOrden: number,
     fechaInicio: Date,
-    IDEstatus: number,
-    IDCuadrilla: number,
-    IDCliente: number,
-    IDTrabajo: number,
-    IDServicio: number
+    idEstatus: number,
+    idCuadrilla: number,
+    idCliente: number,
+    idTrabajo: number,
+    idServicio: number
 }

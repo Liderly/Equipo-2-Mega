@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,15 +11,32 @@ import { CommonModule } from '@angular/common';
 })
 
 export class HeaderComponent {
+  onClickProfile(){}  // no hace nada 
 
-  isOpen: boolean = false;
+  // isDark: boolean = false;
 
-  constructor(private element: ElementRef, private renderer: Renderer2) {}
+  // constructor() { }
 
-  onClickProfile = () => {
-    const profileDropdownList = this.element.nativeElement.querySelector(
-      '.profile-dropdown-list'
-    );
-    this.renderer.setAttribute(profileDropdownList, 'aria-expanded', 'true');
-  }
+  // ngOnInit(): void {
+  //   this.isDark = this.getInitialThe~~~me();
+  // }
+
+  // toggleTheme(): void {
+  //   this.isDark = !this.isDark;
+  //   localStorage.setItem('isDarkTheme', this.isDark.toString());
+  //   this.updateTheme();
+  // }
+
+  // private getInitialTheme(): boolean {
+  //   const savedTheme = localStorage.getItem('isDarkTheme');
+  //   return savedTheme ? JSON.parse(savedTheme) : false;
+  // }
+
+  // private updateTheme(): void {
+  //   if (this.isDark) {
+  //     document.documentElement.classList.add('dark');
+  //   } else {
+  //     document.documentElement.classList.remove('dark');
+  //   }
+  // }
 }
