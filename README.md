@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# Título de tu README
-=======
-<div style="background-image: url('https://media.istockphoto.com/id/1393964009/es/foto/fondo-espacial-colorida-nebulosa-fractal-azul-y-violeta-con-campo-estelar-renderizado-3d.jpg?s=2048x2048&w=is&k=20&c=SSsFqVuoUUCFXFaDcLAI76kGxL89bGWmql9un5KO428='); background-size: cover; padding: 20px;">
+
 
 # HACKATON-MEGA 
 
@@ -43,21 +40,34 @@ Arquitectura MVC: Implementación del patrón Modelo-Vista-Controlador (MVC) par
 API RESTful: Proporciona endpoints bien definidos para operaciones CRUD (solo lectura ) sobre los recursos, permitiendo una fácil integración con aplicaciones front-end.
 Acceso a Datos: Utiliza Entity Framework Core para la interacción con la base de datos, permitiendo un manejo eficiente de las entidades y las relaciones.
 
+## Frontend
+Este proyecto incluye un frontend desarrollado en Angular 18, que presenta tres interfaces gráficas.
+
+Login: La primera interfaz permite a los usuarios iniciar sesión como técnico instalador o administrador.
+
+Interfaz del Técnico Instalador: En esta sección, el técnico puede visualizar sus órdenes de trabajo pendientes, así como un resumen de cuántas tareas ha completado y cuántas están en proceso. Además, se muestran los datos del cliente, siendo la dirección uno de los elementos más importantes, ya que permitirá al instalador o a su equipo dirigirse al lugar donde se llevará a cabo el trabajo.
+
+Interfaz del Administrador: Esta interfaz está diseñada para que el administrador realice un seguimiento del desempeño de cada cuadrilla y técnico. Podrá observar la cantidad de puntos acumulados por cada instalador de manera individual y determinar el monto correspondiente a los bonos que recibirá cada técnico.
+
+## login
+![image](https://github.com/user-attachments/assets/d117c0ea-3f6f-472f-8067-d4e8ec19a65d)
+
+## Interfaz Tecnico 
+![image](https://github.com/user-attachments/assets/ed45e392-ec03-47cf-833b-8d869a450808)
+
+## ordenes de trabajo 
+![image](https://github.com/user-attachments/assets/58194821-bdd5-4e61-9354-6c91dde41ca0)
+
+
 
 
   
 
 
->>>>>>> 2a2986f5e650d6d1885120cd87563ecda20cb875
 
 
-</div>
 
-# Hackathon-mega
 
-## Descripción General
-
-Bienvenido al proyecto del Hackathon. Este repositorio contiene una estructura en que podrás trabajar tu reto con Angular para el frontend y .NET para la API backend. El proyecto está diseñado para ejecutarse localmente, proporcionando una experiencia completa de desarrollo tanto para el frontend como para el backend.
 
 
 
