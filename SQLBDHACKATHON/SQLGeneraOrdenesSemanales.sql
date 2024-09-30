@@ -12,6 +12,9 @@ DECLARE @TotalServicios INT = (SELECT COUNT(*) FROM Servicio);
 -- Eliminar órdenes existentes en el rango de fechas (si las hay)
 DELETE FROM OrdenTrabajo WHERE FechaInicio BETWEEN @FechaInicio AND @FechaFin;
 
+-- Obtener el último número de orden utilizado
+DECLARE @UltimoNumeroOrden INT = ISNULL((SELECT MAX(NumeroOrden) FROM OrdenTrabajo), 0);
+
 -- Generar órdenes para cada cuadrilla
 DECLARE @IDCuadrilla INT = 1;
 WHILE @IDCuadrilla <= 10 -- Asumiendo que hay 10 cuadrillas
@@ -22,14 +25,18 @@ BEGIN
     DECLARE @OrdenActual INT = 1;
     WHILE @OrdenActual <= @NumOrdenes
     BEGIN
+        -- Incrementar el número de orden
+        SET @UltimoNumeroOrden = @UltimoNumeroOrden + 1;
+
         -- Seleccionar una fecha aleatoria dentro del rango
         DECLARE @FechaOrden DATE = DATEADD(DAY, FLOOR(RAND() * 6), @FechaInicio);
         
         -- Seleccionar un trabajo aleatorio
         DECLARE @IDTrabajo INT = CAST(RAND() * 4 + 1 AS INT);
 
-        INSERT INTO OrdenTrabajo (FechaInicio, IDEstatus, IDCuadrilla, IDCliente, IDTrabajo, IDServicio)
+        INSERT INTO OrdenTrabajo (NumeroOrden, FechaInicio, IDEstatus, IDCuadrilla, IDCliente, IDTrabajo, IDServicio)
         VALUES (
+            @UltimoNumeroOrden,
             @FechaOrden,
             @IDEstatusCompletada,
             @IDCuadrilla,
@@ -37,10 +44,8 @@ BEGIN
             @IDTrabajo,
             CAST(RAND() * @TotalServicios + 1 AS INT)
         );
-
         SET @OrdenActual = @OrdenActual + 1;
     END
-
     SET @IDCuadrilla = @IDCuadrilla + 1;
 END
 

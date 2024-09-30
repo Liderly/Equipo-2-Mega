@@ -5,6 +5,7 @@ BEGIN
     SET NOCOUNT ON;
     WITH PuntosTecnicos AS (
         SELECT
+            ot.NumeroOrden,  -- Nueva columna agregada
             t.NoEmpleado AS NumTecnico,
             t.Nombre + ' ' + t.Apellidos AS NombreTecnico,
             c.NoCuadrilla AS Cuadrilla,
@@ -36,6 +37,5 @@ BEGIN
     ORDER BY PT.Cuadrilla, PT.Fecha DESC;
 END
 
-
-
+-- Ejemplo de uso:
 EXEC sp_CalculoDePuntaje @IDCuadrilla=2;
