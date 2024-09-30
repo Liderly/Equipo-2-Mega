@@ -1,4 +1,5 @@
 SELECT
+    ot.NumeroOrden,  -- Nueva columna agregada
     t.NoEmpleado AS NoTecnico,
     t.Nombre + ' ' + t.Apellidos AS NombreTecnico,
     c.NoCuadrilla AS Cuadrilla,
@@ -22,4 +23,3 @@ INNER JOIN PUNTAJE p ON tr.IDPuntaje = p.IDPuntaje
 INNER JOIN Estatus e ON e.IDEstatus = ot.IDEstatus
 WHERE c.IDCuadrilla = 2
 ORDER BY c.NoCuadrilla, t.IDTecnico, ot.FechaInicio DESC;
-

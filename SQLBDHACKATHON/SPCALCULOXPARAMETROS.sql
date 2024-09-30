@@ -1,5 +1,8 @@
-CREATE OR ALTER PROCEDURE sp_CalculoDePuntaje
-    @IDCuadrilla INT
+CREATE OR ALTER PROCEDURE sp_CalculoDePuntajeConParametros
+    @IDCuadrilla INT,
+    @Estatus NVARCHAR(50) = NULL,
+    @FechaInicio DATE = NULL,
+    @FechaFin DATE = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -27,6 +30,9 @@ BEGIN
         INNER JOIN PUNTAJE p ON tr.IDPuntaje = p.IDPuntaje
         INNER JOIN Estatus e ON e.IDEstatus = ot.IDEstatus
         WHERE c.IDCuadrilla = @IDCuadrilla
+        AND (@Estatus IS NULL OR e.EstatusTrabajo = @Estatus)
+        AND (@FechaInicio IS NULL OR ot.FechaInicio >= @FechaInicio)
+        AND (@FechaFin IS NULL OR ot.FechaInicio <= @FechaFin)
     )
     SELECT
         PT.*,
@@ -37,5 +43,15 @@ BEGIN
     ORDER BY PT.Cuadrilla, PT.Fecha DESC;
 END
 
--- Ejemplo de uso:
-EXEC sp_CalculoDePuntaje @IDCuadrilla=2;
+-- Ejemplos de uso:
+-- Solo con IDCuadrilla
+EXEC sp_CalculoDePuntajeConParametros @IDCuadrilla = 10;
+
+-- Con IDCuadrilla y Estatus
+EXEC sp_CalculoDePuntajeConParametros @IDCuadrilla = 4, @Estatus = 'Completada';
+
+-- Con IDCuadrilla y rango de fechas
+EXEC sp_CalculoDePuntajeConParametros @IDCuadrilla = 2, @FechaInicio = '2024-09-29', @FechaFin = '2024-10-05';
+
+-- Con todos los parámetros
+EXEC sp_CalculoDePuntajeConParametros @IDCuadrilla = 2, @Estatus = 'Completada', @FechaInicio = '2024-01-01', @FechaFin = '2024-03-31';

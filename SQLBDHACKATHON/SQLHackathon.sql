@@ -76,6 +76,7 @@ GO
 -- Ahora crea la tabla OrdenTrabajo
 CREATE TABLE OrdenTrabajo (
     IDOrden INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	NumeroOrden INT NOT NULL,
     FechaInicio DATETIME DEFAULT GETDATE(),
     IDEstatus INT,
     IDCuadrilla INT,

@@ -3,27 +3,27 @@ CREATE OR ALTER PROCEDURE sp_TrabajoSemanalTecnico
 AS
 BEGIN
     SET NOCOUNT ON;
-
     -- Calcular las fechas de la semana actual (lunes a sábado)
     DECLARE @FechaInicio DATE = DATEADD(DAY, 1-DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE))
     DECLARE @FechaFin DATE = DATEADD(DAY, 5, @FechaInicio) -- Sábado
-
     -- Obtener información del técnico
     DECLARE @NombreTecnico NVARCHAR(300), @NoCuadrilla INT
     SELECT @NombreTecnico = Nombre + ' ' + Apellidos, @NoCuadrilla = NoCuadrilla
     FROM Tecnicos t
     JOIN Cuadrillas c ON t.IDCuadrilla = c.IDCuadrilla
     WHERE t.IDTecnico = @IDTecnico
-
     -- Calcular trabajo semanal y mostrar resultados
     ;WITH TrabajoSemanal AS (
         SELECT
+            ot.NumeroOrden,
             ot.FechaInicio AS Fecha,
             tr.Descripcion AS TrabajoRealizado,
             s.Titulo AS Servicio,
             CASE WHEN e.EstatusTrabajo = 'Completada' THEN p.Puntos ELSE 0 END AS PuntosGenerados,
             cl.NoSuscriptor AS NumSuscriptor,
             cl.Nombre + ' ' + cl.Apellidos AS NombreSuscriptor,
+            cl.Telefono,
+            cl.Domicilio,
             e.EstatusTrabajo AS Estatus,
             0 AS EsResumen -- Columna para ordenar
         FROM OrdenTrabajo ot
@@ -34,16 +34,17 @@ BEGIN
         INNER JOIN Cliente cl ON ot.IDCliente = cl.IDCliente
         WHERE ot.IDCuadrilla = (SELECT IDCuadrilla FROM Tecnicos WHERE IDTecnico = @IDTecnico)
           AND ot.FechaInicio BETWEEN @FechaInicio AND @FechaFin
-
         UNION ALL
-
         SELECT
+            NULL AS NumeroOrden,
             @FechaFin AS Fecha,
             'RESUMEN' AS TrabajoRealizado,
             NULL AS Servicio,
             SUM(CASE WHEN e.EstatusTrabajo = 'Completada' THEN p.Puntos ELSE 0 END) AS PuntosGenerados,
             COUNT(*) AS NumSuscriptor,
             CAST(SUM(CASE WHEN e.EstatusTrabajo = 'Completada' THEN 1 ELSE 0 END) AS NVARCHAR(10)) + ' completadas' AS NombreSuscriptor,
+            NULL AS Telefono,
+            NULL AS Domicilio,
             'Total' AS Estatus,
             1 AS EsResumen -- Columna para ordenar
         FROM OrdenTrabajo ot
@@ -56,12 +57,15 @@ BEGIN
     SELECT
         @NombreTecnico AS NombreTecnico,
         @NoCuadrilla AS NoCuadrilla,
+        NumeroOrden,
         Fecha,
         TrabajoRealizado,
         Servicio,
         PuntosGenerados,
         NumSuscriptor,
         NombreSuscriptor,
+        Telefono,
+        Domicilio,
         Estatus,
         CASE 
             WHEN EsResumen = 1 THEN 
@@ -74,4 +78,5 @@ BEGIN
     ORDER BY EsResumen, Fecha, PuntosGenerados DESC
 END
 
+-- Ejemplo de uso:
 EXEC sp_TrabajoSemanalTecnico @IDTecnico = 20;
