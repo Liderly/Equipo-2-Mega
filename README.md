@@ -22,6 +22,13 @@ Estructura de Tablas: Contiene tablas para  [Tecnicos, Cuadrillas, Clientes, Tra
 Procedimientos Almacenados: Incluye procedimientos almacenados que permiten realizar operaciones comunes de manera eficiente, como - [Trabajos que se realizan por cuadrillas y  calculo del bono obtenido por cuadrilla y tecnico].
 Índices y Claves: Implementación de índices y claves primarias/foráneas para optimizar el rendimiento de las consultas y asegurar la integridad de los datos.
 
+## Creacion de la base de datos y tablas 
+![image](https://github.com/user-attachments/assets/ffa230aa-cae2-4fca-bfe3-8bd11b6425f2)
+![image](https://github.com/user-attachments/assets/8c2dca3b-221c-4164-ace1-1adc88f7712c)
+![image](https://github.com/user-attachments/assets/5006f723-0fd6-4bda-80ed-4400da769a74)
+
+
+
 ## Diagrama entidad relacion 
    ![DiagramaE-R](https://github.com/user-attachments/assets/fecf3984-ace9-4941-975b-abe4c1f8b77c)
 
@@ -50,13 +57,15 @@ Interfaz del Técnico Instalador: En esta sección, el técnico puede visualizar
 Interfaz del Administrador: Esta interfaz está diseñada para que el administrador realice un seguimiento del desempeño de cada cuadrilla y técnico. Podrá observar la cantidad de puntos acumulados por cada instalador de manera individual y determinar el monto correspondiente a los bonos que recibirá cada técnico.
 
 ## login
-![image](https://github.com/user-attachments/assets/d117c0ea-3f6f-472f-8067-d4e8ec19a65d)
+![image](https://github.com/user-attachments/assets/72c1515d-c32d-4d2c-a38b-1342fe13272c)
 
 ## Interfaz Tecnico 
-![image](https://github.com/user-attachments/assets/ed45e392-ec03-47cf-833b-8d869a450808)
+![image](https://github.com/user-attachments/assets/027f7d72-8fe2-40f5-b366-c14a828af7f5)
+![image](https://github.com/user-attachments/assets/4e86e5d7-d213-405f-a178-982e06fe38d7)
 
-## ordenes de trabajo 
-![image](https://github.com/user-attachments/assets/58194821-bdd5-4e61-9354-6c91dde41ca0)
+
+
+
 
 
 
