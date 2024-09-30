@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ApiService } from '../services/service'; // service.ts
 
-import { HeaderComponent } from "../header/header.component"
+import { HeaderComponent } from '../header/header.component';
 
 interface Order {
   id: string;
@@ -23,19 +23,23 @@ interface Order {
   templateUrl: './dash-tecnico.component.html',
   styleUrls: ['./dash-tecnico.component.css'],
   imports: [CommonModule, HeaderComponent],
-  standalone: true
+  standalone: true,
 })
 export class DashTecnicoComponent {
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: object, private usersService: ApiService) {}
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private usersService: ApiService
+  ) {}
 
   user: any;
   // elValor: any;
 
   private getUserData(): any {
-    if(isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId)) {
       const userData = localStorage.getItem('userData');
-      console.log('esta es la user data', userData)
-      return userData ? JSON.parse(userData): {} ;
+      console.log('esta es la user data', userData);
+      return userData ? JSON.parse(userData) : {};
     }
     return {};
   }
@@ -49,11 +53,8 @@ export class DashTecnicoComponent {
         console.log('REPSONSE => ', response);
         this.orders = response;
         return response;
-      }
-
+      },
     });
-
-
   }
 
   showOrders = false;
@@ -67,7 +68,7 @@ export class DashTecnicoComponent {
       client: 'Empresa A',
       phone: '555-1234',
       address: 'Calle Principal 123, Ciudad',
-      showDetails: false
+      showDetails: false,
     },
     {
       id: '1554',
@@ -78,7 +79,7 @@ export class DashTecnicoComponent {
       client: 'Empresa F',
       phone: '555-1234',
       address: 'Calle Principal 123, Ciudad',
-      showDetails: false
+      showDetails: false,
     },
     {
       id: '5678',
@@ -89,7 +90,7 @@ export class DashTecnicoComponent {
       client: 'Empresa B',
       phone: '555-5678',
       address: 'Avenida Secundaria 456, Ciudad',
-      showDetails: false
+      showDetails: false,
     },
     {
       id: '9101',
@@ -100,20 +101,40 @@ export class DashTecnicoComponent {
       client: 'Empresa C',
       phone: '555-9101',
       address: 'Plaza Central 789, Ciudad',
-      showDetails: false
-    }
+      showDetails: false,
+    },
   ];
 
   dashboardCards = [
-    { title: 'N.Total de Puntos', value: '60', icon: 'fa-wallet', color: 'bg-green-600' },
-    { title: 'Clientes Atendidos', value: '13', icon: 'fa-users', color: 'bg-blue-600' },
-    { title: 'Nuevos Clientes', value: '2', icon: 'fa-user-plus', color: 'bg-orange-600' },
-    { title: 'Clientes Pendientes', value: '3', icon: 'fa-user-plus', color: 'bg-purple-600' }
+    {
+      title: 'N.Total de Puntos',
+      value: '60',
+      icon: 'fa-wallet',
+      color: 'bg-green-600',
+    },
+    {
+      title: 'Clientes Atendidos',
+      value: '13',
+      icon: 'fa-users',
+      color: 'bg-blue-600',
+    },
+    {
+      title: 'Nuevos Clientes',
+      value: '2',
+      icon: 'fa-user-plus',
+      color: 'bg-orange-600',
+    },
+    {
+      title: 'Clientes Pendientes',
+      value: '3',
+      icon: 'fa-user-plus',
+      color: 'bg-purple-600',
+    },
   ];
 
   toggleOrders() {
     this.showOrders = !this.showOrders;
-    console.log(this.user)
+    console.log(this.user);
   }
 
   toggleOrderDetails(index: number) {
@@ -123,8 +144,4 @@ export class DashTecnicoComponent {
   Logout() {
     this.router.navigate(['/login']);
   }
-
 }
-
-
-

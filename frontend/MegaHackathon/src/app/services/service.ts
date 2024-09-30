@@ -2,21 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Tecnico } from "../interface/tecnico";
+import { Tecnico } from '../interface/tecnico';
 import { Cliente } from '../interface/clientes';
 import { CuadrillaReport } from '../interface/cuadrillas';
 import { OrdenTrabajo } from '../interface/ordenTrabajo';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ApiService {
   private apiUrl = 'http://localhost:5009/api'; // Ajusta según tu configuración
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTecnicos(): Observable<any> {
     //Agregar ruta
@@ -27,7 +24,6 @@ export class ApiService {
     //Agregar ruta
     return this.http.get(`${this.apiUrl}/Tecnico/${id}`);
   }
-
 
   getClientes(): Observable<any> {
     //Agregar ruta
@@ -49,7 +45,6 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/Ordentrabajo`);
   }
 
-
   //Reports
   //Cuadrilla
   getCuadrillaReport(id: number): Observable<any> {
@@ -60,26 +55,20 @@ export class ApiService {
   getTecnicoReport(id: number): Observable<any> {
     //console.log('recibi id - servce ->> ', id);
 
-    return this.http.get(`${this.apiUrl}/tecnicoreport/${id}`)
+    return this.http.get(`${this.apiUrl}/tecnicoreport/${id}`);
   }
 
-
-
-  //LOOOOOOOOOOOOOOG
+  //Login user
   login(noEmpleado: string): Observable<any> {
-
     let data = this.http.get(`${this.apiUrl}/tecnico/${noEmpleado}`);
 
     //console.log('data es: ', data);
 
-    if(data != null){
+    if (data != null) {
       return data;
     }
 
     //const loginData = { noEmpleado, password }
     return this.http.get(`${this.apiUrl}/Tecnico/${noEmpleado}`);
   }
-
-
-
 }
