@@ -27,7 +27,7 @@ export class LoginComponent {
   onSubmit() {
     this.usersService.login(this.noEmpleado).subscribe({
       next: (response) => {
-        console.log('Login successful', response);
+        //console.log('Login successful', response);
         if (response) {
           this.handleAuthentication(
             response.idTecnico,

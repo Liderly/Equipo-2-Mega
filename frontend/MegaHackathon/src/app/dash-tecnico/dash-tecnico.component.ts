@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { ApiService } from '../services/service'; // service.ts
 
@@ -8,14 +8,27 @@ import { HeaderComponent } from '../header/header.component';
 
 interface Order {
   id: string;
-  status: string;
-  date: string;
-  service: string;
-  work: string;
-  client: string;
-  phone: string;
-  address: string;
+  estatus: string;
+  numeroOrden: string;
+  fecha: string;
+  puntosGenerados: string;
+  servicio: string;
+  trabajoRealizado: string;
+  nombreSuscriptor: string;
+  numSuscriptor: string; // id
+  telefono: string; // telefono
+  domicilio: string;
+  bonoSemanal: string;
   showDetails: boolean;
+}
+
+interface ordersTecSumary {
+  trabajoRealizado: string;
+  puntosGenerados: string;
+  numSuscriptor: string; // ##
+  nombreSuscriptor: string; //"## completadas"
+  estatus: string; //"total"
+  bonoSemanal: string; //"###"
 }
 
 @Component({
@@ -25,7 +38,7 @@ interface Order {
   imports: [CommonModule, HeaderComponent],
   standalone: true,
 })
-export class DashTecnicoComponent {
+export class DashTecnicoComponent implements OnInit {
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -33,88 +46,28 @@ export class DashTecnicoComponent {
   ) {}
 
   user: any;
-  // elValor: any;
 
-  private getUserData(): any {
-    if (isPlatformBrowser(this.platformId)) {
-      const userData = localStorage.getItem('userData');
-      console.log('esta es la user data', userData);
-      return userData ? JSON.parse(userData) : {};
-    }
-    return {};
-  }
+  ordersTecSumary: ordersTecSumary = {
+    trabajoRealizado: '',
+    puntosGenerados: '',
+    numSuscriptor: '',
+    nombreSuscriptor: '',
+    estatus: '',
+    bonoSemanal: '',
+  };
 
-  ngOnInit() {
-    this.user = this.getUserData();
-    console.log('lo que vale user.id ===', this.user.idTecnico);
-
-    this.usersService.getTecnicoReport(this.user.idTecnico).subscribe({
-      next: (response) => {
-        console.log('REPSONSE => ', response);
-        this.orders = response;
-        return response;
-      },
-    });
-  }
-
-  showOrders = false;
-  orders: Order[] = [
-    {
-      id: '1234',
-      status: 'Cancelada',
-      date: '2023-09-24',
-      service: 'Mantenimiento',
-      work: 'Revisión general',
-      client: 'Empresa A',
-      phone: '555-1234',
-      address: 'Calle Principal 123, Ciudad',
-      showDetails: false,
-    },
-    {
-      id: '1554',
-      status: 'En proceso',
-      date: '2023-09-24',
-      service: 'Mantenimiento',
-      work: 'Revisión general',
-      client: 'Empresa F',
-      phone: '555-1234',
-      address: 'Calle Principal 123, Ciudad',
-      showDetails: false,
-    },
-    {
-      id: '5678',
-      status: 'Pendiente',
-      date: '2023-09-25',
-      service: 'Instalación',
-      work: 'Nuevo equipo',
-      client: 'Empresa B',
-      phone: '555-5678',
-      address: 'Avenida Secundaria 456, Ciudad',
-      showDetails: false,
-    },
-    {
-      id: '9101',
-      status: 'Completada',
-      date: '2023-09-26',
-      service: 'Reparación',
-      work: 'Cambio de piezas',
-      client: 'Empresa C',
-      phone: '555-9101',
-      address: 'Plaza Central 789, Ciudad',
-      showDetails: false,
-    },
-  ];
+  orders: Order[] = [];
 
   dashboardCards = [
     {
       title: 'N.Total de Puntos',
-      value: '60',
+      value: '', // Initialize as empty
       icon: 'fa-wallet',
       color: 'bg-green-600',
     },
     {
       title: 'Clientes Atendidos',
-      value: '13',
+      value: '', // Initialize as empty
       icon: 'fa-users',
       color: 'bg-blue-600',
     },
@@ -125,12 +78,69 @@ export class DashTecnicoComponent {
       color: 'bg-orange-600',
     },
     {
-      title: 'Clientes Pendientes',
-      value: '3',
+      title: 'Bono Correspondiente',
+      value: '', // Initialize as empty
       icon: 'fa-user-plus',
       color: 'bg-purple-600',
     },
   ];
+
+  ngOnInit() {
+    this.user = this.getUserData();
+    // console.log('lo que vale user.id ===', this.user.idTecnico);
+
+    this.usersService.getTecnicoReport(this.user.idTecnico).subscribe({
+      next: (response: Order[]) => {
+        // console.log('RESPONSE => ', response);
+        this.orders = response;
+
+        // console.log('PASO A SER Orders = ', this.orders);
+
+        if (this.orders.length > 0) {
+          this.ordersTecSumary = this.orders[this.orders.length - 1];
+          // console.log(
+          //   'que paso a ser ordersTecSumary?? ',
+          //   this.ordersTecSumary
+          // );
+
+          this.orders.pop(); //ultima fila de resumen
+
+          // Update dashboardCards with fetched data
+          this.dashboardCards = [
+            {
+              title: 'N.Total de Puntos',
+              value: this.ordersTecSumary.puntosGenerados,
+              icon: 'fa-wallet',
+              color: 'bg-green-600',
+            },
+            {
+              title: 'Clientes Atendidos',
+              value: this.ordersTecSumary.numSuscriptor,
+              icon: 'fa-users',
+              color: 'bg-blue-600',
+            },
+            {
+              title: 'Nuevos Clientes',
+              value: '2',
+              icon: 'fa-user-plus',
+              color: 'bg-orange-600',
+            },
+            {
+              title: 'Bono Correspondiente',
+              value: '$' + this.ordersTecSumary.bonoSemanal,
+              icon: 'fa-user-plus',
+              color: 'bg-purple-600',
+            },
+          ];
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching data:', error);
+      },
+    });
+  }
+
+  showOrders = false;
 
   toggleOrders() {
     this.showOrders = !this.showOrders;
@@ -143,5 +153,13 @@ export class DashTecnicoComponent {
 
   Logout() {
     this.router.navigate(['/login']);
+  }
+
+  private getUserData(): any {
+    if (isPlatformBrowser(this.platformId)) {
+      const userData = localStorage.getItem('userData');
+      return userData ? JSON.parse(userData) : {};
+    }
+    return {};
   }
 }
