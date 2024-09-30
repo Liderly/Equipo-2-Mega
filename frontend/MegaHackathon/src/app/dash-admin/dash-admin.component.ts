@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Chart, ChartConfiguration, } from 'chart.js/auto';
 
+import { ApiService } from '../services/service'
+import { Tecnico } from '../interface/tecnico'
 import { HeaderComponent } from '../header/header.component';
 
-interface Tecnico {
+interface Tecnico1 {
   nombreTecnico: string;
   Cuadrilla: number;
   TotalPuntosPorTecnico: number;
@@ -25,7 +27,8 @@ export class DashAdminComponent implements OnInit {
   @ViewChild('servicesChart', { static: true })
   servicesChartRef!: ElementRef<HTMLCanvasElement>;
 
-  tecnicos: Tecnico[] = [];
+  tecnico: Tecnico[] = [];
+  tecnicos: Tecnico1[] = [];
   cuadrillas: number[] = [];
   selectedCuadrilla: string = '';
   selectedStatus: string = '';
@@ -36,11 +39,22 @@ export class DashAdminComponent implements OnInit {
   completionRate: number = 0;
   totalJobs: number = 0;
 
-  constructor() {}
+  constructor(private userService: ApiService) {}
 
   ngOnInit(): void {
     this.loadData();
     this.initCharts();
+
+
+    //Cambiar por ruta final que traiga todo 
+    this.userService.getTecnicos().subscribe({
+      next: (response: Tecnico[]) => {
+        this.tecnico = response;
+        console.log(this.tecnico)
+      }
+    })
+
+
   }
 
   loadData(): void {
@@ -154,7 +168,7 @@ export class DashAdminComponent implements OnInit {
     console.log('Exportando datos...');
   }
 
-  verDetalles(tecnico: Tecnico): void {
+  verDetalles(tecnico: Tecnico1): void {
     console.log('Viendo detalles de:', tecnico.nombreTecnico);
   }
 }

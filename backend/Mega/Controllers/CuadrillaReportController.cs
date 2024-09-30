@@ -17,7 +17,17 @@ namespace Mega.Controllers
             _context = context;
         }
 
+        /*
+        Ruta para sacar TODAS las ordenes de TODAS las cuadrillas
+        */
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CuadrillaAllReport>>> GetCuadrillaAllReport()
+        {
+            var cuadrillaRep = await _context.CuadrillaReports
+            .FromSqlRaw(@"EXEC sp_CalculoDePuntajeTodasCuadrillas").ToListAsync();
 
+            return Ok(cuadrillaRep);
+        }
         //GET cuadrilla report
         /// <summary>
         /// Returns work (OTs) done by a specific cuadrilla, and bonus applied
