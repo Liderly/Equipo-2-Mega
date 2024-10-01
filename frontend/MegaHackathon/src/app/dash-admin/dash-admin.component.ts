@@ -95,11 +95,16 @@ export class DashAdminComponent implements OnInit, OnDestroy {
     this.userService.getAllCuadrillas().subscribe({
       next: (response: Cuadrilla[]) => {
         this.cuadrillasList = response;
-        console.log('Cuadrillas List:', this.cuadrillasList);
+        // console.log('Cuadrillas List:', this.cuadrillasList);
+        const evalNumCua = Number(this.selectedCuadrilla);
+        // console.log('this.evalNumCua ==>>', evalNumCua);
 
         if (this.cuadrillasList.length > 0) {
           this.selectedCuadrilla =
-            this.cuadrillasList[Number(this.selectedCuadrilla)].idCuadrilla;
+            evalNumCua > 1
+              ? this.cuadrillasList[Number(this.selectedCuadrilla) - 1]
+                  .idCuadrilla
+              : this.cuadrillasList[Number(this.selectedCuadrilla)].idCuadrilla;
         }
       },
       error: (error) => {
@@ -297,7 +302,10 @@ export class DashAdminComponent implements OnInit, OnDestroy {
   }
 
   applyFilters(): void {
-    console.log('Aplicando filtros:', this.selectedCuadrilla);
+    console.log(
+      'Aplicando filtros: this.selectedCuadrilla =>',
+      this.selectedCuadrilla
+    );
     this.loadData();
 
     this.userService.getCuadrillaReport(this.selectedCuadrilla).subscribe({

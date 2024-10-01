@@ -13,19 +13,6 @@
         Cuadrilla {{ cuadrilla.noCuadrilla }}
       </option>
     </select>
-    <!-- <select
-      [(ngModel)]="selectedCuadrilla"
-      (change)="applyFilters()"
-      class="p-2 border rounded"
-    >
-      <option value="">Todas las Cuadrillas</option>
-      <option
-        *ngFor="let cuadrilla of cuadrillasList"
-        [value]="cuadrilla.noCuadrilla"
-      >
-        Cuadrilla {{ cuadrilla.noCuadrilla }}
-      </option>
-    </select> -->
     <select
       [(ngModel)]="selectedStatus"
       (change)="applyFilters()"
