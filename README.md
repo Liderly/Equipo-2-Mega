@@ -56,7 +56,8 @@ Elaborar un informe detallado para el procesamiento de pagos de puntos acumulado
 
 ### <span style="color: #0366d6;">Reporte General</span>
 
-![Reporte General]()
+![image](https://github.com/user-attachments/assets/ff76c047-895a-43ed-8af2-79709af80e59)
+
 
 
 
@@ -72,14 +73,46 @@ Proyecto escalable en C# utilizando el framework .NET, diseñado para ofrecer un
 - **API RESTful:** Endpoints bien definidos para operaciones CRUD.
 - **Acceso a Datos:** Utiliza Entity Framework Core.
 - **Documentación de API:** Integración con Swagger.
+ 
+### <span style="color: #0366d6;">Creación de Model y Controller</span>
+![image](https://github.com/user-attachments/assets/b53fb5a6-694b-4be3-9cdf-a3b5a58e5dd7)
 
+
+### <span style="color: #0366d6;">Pruebas en Swagger</span>
 ![Swagger API Documentation](https://github.com/user-attachments/assets/5a115023-0948-4138-bac2-1e56aa16ee1f)
+
+
+### <span style="color: #0366d6;">Respuesta del funcionamiento de un EndPoint en formato json</span>
+![image](https://github.com/user-attachments/assets/c6356224-a09b-4c03-91f9-a5597a490bbd)
 
 ---
 
 ## 🎨 <span style="color: #0366d6;">Frontend</span>
 
-Desarrollado en Angular 18, presenta tres interfaces gráficas principales.
+Desarrollado en Angular 18, el frontend ofrece una interfaz de usuario intuitiva y responsiva, diseñada para técnicos y administradores.
+<span style="color: #0366d6;">Características Principales</span>
+
+- Autenticación Segura
+- Dashboard Personalizado para Técnicos
+- Dashboard Analítico para Administradores
+- Integración con API Swagger
+- Diseño Responsivo
+
+### <span style="color: #0366d6;">Características Principales</span>
+
+1. Login Component
+
+- Autenticación de usuarios 
+
+2. Dashboard Técnico Component
+- Datos principales del técnico
+- Lista de órdenes de trabajo incluyendo datos del Cliente
+- Visualización de bono semanal y puntos acumulados
+  
+3. Dashboard Administrador Component
+- Datos de Tecnicos por cuadrilla
+- Gráfico de progreso semanal
+- Puntos y Bonos por cuadrilla
 
 ### <span style="color: #0366d6;">Interfaces</span>
 
@@ -88,15 +121,18 @@ Desarrollado en Angular 18, presenta tres interfaces gráficas principales.
 
 2. **Dashboard Técnico**
    ![Técnico Dashboard 1](https://github.com/user-attachments/assets/8fc433cd-50b4-4e3b-b7e6-b20f8c6cf87c)
+   
+3. **Órdenes de Trabajo con Estatus de color**
    ![Técnico Dashboard 2](https://github.com/user-attachments/assets/1795345f-7350-4311-9375-14409c1ec9eb)
-   ![Técnico Dashboard 3](https://github.com/user-attachments/assets/5f87cde2-b521-4cec-97f6-ced60b6e6228)
+4. **Órdenes desplegables con detalles y Google Maps**
+ ![Técnico Dashboard 3](https://github.com/user-attachments/assets/5f87cde2-b521-4cec-97f6-ced60b6e6228)
 
-3. **Dashboard Administrador**
+6. **Dashboard Administrador**
    ![Admin Dashboard](https://github.com/user-attachments/assets/e34650cd-5025-4288-a7f3-64ff27721904)
 
 ---
 
-<p align="center">© 2024 HACKATHON-MEGA. Todos los derechos reservados.</p>
+## 👨‍💻 👨‍💻 👨‍💻 👨‍💻 <span style="color: #0366d6;">INTEGRANTES DEL EQUIPO</span>
 
 
 
