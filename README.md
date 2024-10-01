@@ -131,7 +131,8 @@ Desarrollado en Angular 18, el frontend ofrece una interfaz de usuario intuitiva
 ![image](https://github.com/user-attachments/assets/39192184-aac3-4481-8f62-93ea93a63e4f)
 
 7. **Dashboard con los datos de los técnicos y su bono**
-   ![image](https://github.com/user-attachments/assets/94b89ae2-f91c-4d62-8f55-41345c0e298f)
+ ![image](https://github.com/user-attachments/assets/d41cb171-e2e1-4d93-b451-847bf8827f3f)
+
 
 ---
 
