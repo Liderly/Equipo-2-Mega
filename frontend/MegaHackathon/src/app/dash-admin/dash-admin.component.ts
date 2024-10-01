@@ -86,7 +86,7 @@ export class DashAdminComponent implements OnInit {
     this.userService.getAllCuadrillas().subscribe({
       next: (response: Cuadrilla[]) => {
         this.cuadrillasList = response;
-        console.log('Cuadrillas List:', this.cuadrillasList);
+        // console.log('Cuadrillas List:', this.cuadrillasList);
       },
       error: (error) => {
         console.error('Error fetching cuadrillas:', error);
@@ -129,13 +129,13 @@ export class DashAdminComponent implements OnInit {
           Cuadrilla: job.cuadrilla,
           TotalPuntosPorTecnico: job.totalPuntosPorTecnico,
           TrabajosCompletados: 0,
-          BonoSemanal: 0
+          BonoSemanal: job.valorPago,
         };
       }
 
       // Safely check if 'estatus' exists and is 'Completada'
       if (job.estatus && job.estatus.toLowerCase() === 'completada') {
-        acc[key].TrabajosCompletados += 1;
+        acc[key].TrabajosCompletados += 1; //conteo
       }
 
       return acc;
