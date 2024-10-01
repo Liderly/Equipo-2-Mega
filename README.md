@@ -51,7 +51,8 @@ Elaborar un informe detallado para el procesamiento de pagos de puntos acumulado
 
 ### <span style="color: #0366d6;">Creación de SP</span>
 
-![Inserción de Técnicos]((https://github.com/user-attachments/assets/9f222357-1b33-436a-b185-2c48738f3af5)
+![image](https://github.com/user-attachments/assets/108bd3b7-efc0-464d-8514-d22e7745d6e7)
+
 
 ### <span style="color: #0366d6;">Reporte General</span>
 
