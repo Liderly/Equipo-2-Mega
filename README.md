@@ -128,7 +128,10 @@ Desarrollado en Angular 18, el frontend ofrece una interfaz de usuario intuitiva
  ![Técnico Dashboard 3](https://github.com/user-attachments/assets/5f87cde2-b521-4cec-97f6-ced60b6e6228)
 
 6. **Dashboard Administrador**
-   ![Admin Dashboard](https://github.com/user-attachments/assets/e34650cd-5025-4288-a7f3-64ff27721904)
+![image](https://github.com/user-attachments/assets/39192184-aac3-4481-8f62-93ea93a63e4f)
+
+7. **Dashboard con los datos de los técnicos y su bono**
+   ![image](https://github.com/user-attachments/assets/94b89ae2-f91c-4d62-8f55-41345c0e298f)
 
 ---
 
