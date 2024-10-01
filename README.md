@@ -23,11 +23,7 @@ Procedimientos Almacenados: Incluye procedimientos almacenados que permiten real
 Índices y Claves: Implementación de índices y claves primarias/foráneas para optimizar el rendimiento de las consultas y asegurar la integridad de los datos.
 
 ## Creacion de la base de datos y tablas 
-![image](https://github.com/user-attachments/assets/ffa230aa-cae2-4fca-bfe3-8bd11b6425f2)
-![image](https://github.com/user-attachments/assets/8c2dca3b-221c-4164-ace1-1adc88f7712c)
-![image](https://github.com/user-attachments/assets/5006f723-0fd6-4bda-80ed-4400da769a74)
-
-
+![image](https://github.com/user-attachments/assets/19860960-bdcd-4f04-aac4-c5b70ceec7d5)
 
 ## Diagrama entidad relacion 
    ![DiagramaE-R](https://github.com/user-attachments/assets/fecf3984-ace9-4941-975b-abe4c1f8b77c)
@@ -40,12 +36,19 @@ Procedimientos Almacenados: Incluye procedimientos almacenados que permiten real
 
 
 ## Backend
-Este proyecto incluye un backend escalable desarrollado en C# utilizando el framework .NET. Está diseñado para ofrecer una API RESTful que permite la interacción  con los tecnicos instaladores , para que puedan observar las ordenes de trabajo que tiene que realizar asi como los domicilios donde se deben que llevar acabo, asi como interaccion con la persona encargada de otorgar el bono obervando el puntaje de las cuadrillas y tecnicos. realizacion del calculo automotico del bono correspondiente a cada tecnico.
+Este proyecto incluye un backend escalable desarrollado en C# utilizando el framework .NET. Está diseñado para ofrecer una API RESTful que permite la interacción con los técnicos instaladores, quienes pueden consultar las órdenes de trabajo que deben realizar, así como los domicilios donde se llevarán a cabo. Además, proporciona herramientas para que la persona encargada de otorgar los bonos pueda observar el puntaje de las cuadrillas y técnicos, y calcular automáticamente el bono correspondiente a cada técnico.
 
 Características Principales
 Arquitectura MVC: Implementación del patrón Modelo-Vista-Controlador (MVC) para una clara separación de preocupaciones, facilitando la mantenibilidad y escalabilidad del código.
-API RESTful: Proporciona endpoints bien definidos para operaciones CRUD (solo lectura ) sobre los recursos, permitiendo una fácil integración con aplicaciones front-end.
-Acceso a Datos: Utiliza Entity Framework Core para la interacción con la base de datos, permitiendo un manejo eficiente de las entidades y las relaciones.
+
+API RESTful: Proporciona endpoints bien definidos para operaciones CRUD (solo lectura) sobre los recursos, permitiendo una fácil integración con aplicaciones front-end.
+
+Acceso a Datos: Utiliza Entity Framework Core para la interacción con la base de datos, permitiendo un manejo eficiente de las entidades y sus relaciones.
+
+Documentación de API con Swagger: Se ha integrado Swagger para facilitar la documentación y visualización de los endpoints de la API, permitiendo a los desarrolladores probar y explorar la funcionalidad de la API de manera interactiva.
+
+![image](https://github.com/user-attachments/assets/5a115023-0948-4138-bac2-1e56aa16ee1f)
+
 
 ## Frontend
 Este proyecto incluye un frontend desarrollado en Angular 18, que presenta tres interfaces gráficas.
@@ -57,11 +60,19 @@ Interfaz del Técnico Instalador: En esta sección, el técnico puede visualizar
 Interfaz del Administrador: Esta interfaz está diseñada para que el administrador realice un seguimiento del desempeño de cada cuadrilla y técnico. Podrá observar la cantidad de puntos acumulados por cada instalador de manera individual y determinar el monto correspondiente a los bonos que recibirá cada técnico.
 
 ## login
-![image](https://github.com/user-attachments/assets/72c1515d-c32d-4d2c-a38b-1342fe13272c)
+![image](https://github.com/user-attachments/assets/4b88576d-616b-4b7a-a5ac-df6f0b87cd4f)
 
-## Interfaz Tecnico 
-![image](https://github.com/user-attachments/assets/027f7d72-8fe2-40f5-b366-c14a828af7f5)
-![image](https://github.com/user-attachments/assets/4e86e5d7-d213-405f-a178-982e06fe38d7)
+
+## Dashboard Tecnico
+![image](https://github.com/user-attachments/assets/8fc433cd-50b4-4e3b-b7e6-b20f8c6cf87c)
+
+![image](https://github.com/user-attachments/assets/1795345f-7350-4311-9375-14409c1ec9eb)
+
+![image](https://github.com/user-attachments/assets/5f87cde2-b521-4cec-97f6-ced60b6e6228)
+
+## Graficas de Dashboard Administrador 
+![image](https://github.com/user-attachments/assets/e34650cd-5025-4288-a7f3-64ff27721904)
+
 
 
 
