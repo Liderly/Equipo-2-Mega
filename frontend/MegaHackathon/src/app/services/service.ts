@@ -45,9 +45,13 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/Ordentrabajo`);
   }
 
+  getAllCuadrillas(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/cuadrilla`);
+  }
+
   //Trae info de todas las cuadrillas
   getAllReport(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/CuadrillaReport`)
+    return this.http.get(`${this.apiUrl}/CuadrillaReport`);
   }
   //Reports
   //Cuadrilla

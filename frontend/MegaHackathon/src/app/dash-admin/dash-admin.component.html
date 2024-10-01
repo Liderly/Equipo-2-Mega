@@ -1,76 +1,107 @@
 <app-header></app-header>
 
 <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6">BONO SEMANAL DEL TÉCNICO</h1>
+  <h1 class="text-3xl font-bold mb-6">BONO SEMANAL DEL TÉCNICO</h1>
 
-    <!-- Filtros -->
-    <div class="mb-6 flex flex-wrap gap-4">
-        <select [(ngModel)]="selectedCuadrilla" (change)="applyFilters()" class="p-2 border rounded">
-            <option value="">Todas las Cuadrillas</option>
-            <option *ngFor="let cuadrilla of cuadrillas" [value]="cuadrilla">Cuadrilla {{ cuadrilla }}</option>
-        </select>
-        <select [(ngModel)]="selectedStatus" (change)="applyFilters()" class="p-2 border rounded">
-            <option value="">Todos los Estados</option>
-            <option value="Completada">Completada</option>
-            <option value="Pendiente">Pendiente</option>
-        </select>
-        <input type="date" [(ngModel)]="startDate" (change)="applyFilters()" class="p-2 border rounded">
-        <input type="date" [(ngModel)]="endDate" (change)="applyFilters()" class="p-2 border rounded">
-        <button (click)="exportData()" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Exportar
-            Datos</button>
-    </div>
+  <!-- Filtros -->
+  <div class="mb-6 flex flex-wrap gap-4">
+    <select
+      [(ngModel)]="selectedCuadrilla"
+      (change)="applyFilters()"
+      class="p-2 border rounded"
+    >
+      <option value="">Todas las Cuadrillas</option>
+      <option
+        *ngFor="let cuadrilla of cuadrillasList"
+        [value]="cuadrilla.noCuadrilla"
+      >
+        Cuadrilla {{ cuadrilla.noCuadrilla }}
+      </option>
+    </select>
+    <select
+      [(ngModel)]="selectedStatus"
+      (change)="applyFilters()"
+      class="p-2 border rounded"
+    >
+      <option value="">Todos los Estados</option>
+      <option value="Completada">Completada</option>
+      <option value="Pendiente">Pendiente</option>
+    </select>
+    <input
+      type="date"
+      [(ngModel)]="startDate"
+      (change)="applyFilters()"
+      class="p-2 border rounded"
+    />
+    <input
+      type="date"
+      [(ngModel)]="endDate"
+      (change)="applyFilters()"
+      class="p-2 border rounded"
+    />
+    <button
+      (click)="exportData()"
+      class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+    >
+      Exportar Datos
+    </button>
+  </div>
 
-    <!-- KPIs -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div class="bg-white p-4 rounded shadow">
-            <h2 class="text-lg font-semibold mb-2">Promedio de Puntos</h2>
-            <p class="text-3xl font-bold">{{ averagePoints | number:'1.0-0' }}</p>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-            <h2 class="text-lg font-semibold mb-2">Tasa de Completitud</h2>
-            <p class="text-3xl font-bold">{{ completionRate | percent }}</p>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-            <h2 class="text-lg font-semibold mb-2">Total Trabajos</h2>
-            <p class="text-3xl font-bold">{{ totalJobs }}</p>
-        </div>
-    </div>
-
-    <!-- Gráficos -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div class="bg-white p-4 rounded shadow">
-            <h2 class="text-lg font-semibold mb-4">Rendimiento por Técnico</h2>
-            <canvas #performanceChart></canvas>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-            <h2 class="text-lg font-semibold mb-4">Distribución de Servicios</h2>
-            <canvas #servicesChart></canvas>
-        </div>
-    </div>
-
-    <!-- Tabla de Técnicos -->
+  <!-- KPIs -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="bg-white p-4 rounded shadow">
-        <h2 class="text-lg font-semibold mb-4">Categoria de Técnicos</h2>
-        <table class="min-w-full">
-            <thead>
-                <tr>
-                    <th class="text-left">Nombre</th>
-                    <th class="text-left">Total Puntos</th>
-                    <th class="text-left">Trabajos Completados</th>
-                    <th class="text-left">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let tecnico of tecnicos">
-                    <td>{{ tecnico.nombreTecnico }}</td>
-                    <td>{{ tecnico.TotalPuntosPorTecnico }}</td>
-                    <td>{{ tecnico.TrabajosCompletados }}</td>
-                    <td>
-                        <button (click)="verDetalles(tecnico)" class="text-blue-500 hover:underline">Ver
-                            Detalles</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      <h2 class="text-lg font-semibold mb-2">Promedio de Puntos</h2>
+      <p class="text-3xl font-bold">{{ averagePoints | number : "1.0-0" }}</p>
     </div>
+    <div class="bg-white p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">Tasa de Completitud</h2>
+      <p class="text-3xl font-bold">{{ completionRate | percent }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">Total Trabajos</h2>
+      <p class="text-3xl font-bold">{{ totalJobs }}</p>
+    </div>
+  </div>
+
+  <!-- Gráficos -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-4">Rendimiento por Técnico</h2>
+      <canvas #performanceChart></canvas>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-4">Distribución de Servicios</h2>
+      <canvas #servicesChart></canvas>
+    </div>
+  </div>
+
+  <!-- Tabla de Técnicos -->
+  <div class="bg-white p-4 rounded shadow">
+    <h2 class="text-lg font-semibold mb-4">Categoria de Técnicos</h2>
+    <table class="min-w-full">
+      <thead>
+        <tr>
+          <th class="text-left">Nombre</th>
+          <th class="text-left">Total Puntos</th>
+          <th class="text-left">Trabajos Completados</th>
+          <th class="text-left">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tecnico of tecnicos">
+          <td>{{ tecnico.nombreTecnico }}</td>
+          <td>{{ tecnico.TotalPuntosPorTecnico }}</td>
+          <td>{{ tecnico.TrabajosCompletados }}</td>
+          <td>
+            <button
+              (click)="verDetalles(tecnico)"
+              class="text-blue-500 hover:underline"
+            >
+              Ver Detalles
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
