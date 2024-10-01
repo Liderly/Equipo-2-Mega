@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
@@ -15,7 +21,6 @@ interface Tecnico1 {
   TrabajosCompletados: number;
 }
 
-// Original Job Interface (as per your JSON response)
 interface Job {
   numTecnico: number;
   nombretecnico: string;
@@ -31,7 +36,6 @@ interface Job {
   valorPago: number;
 }
 
-// Interface representing aggregated data per technician
 interface TecnicoSummary {
   nombreTecnico: string;
   Cuadrilla: number;
@@ -47,63 +51,55 @@ interface TecnicoSummary {
   templateUrl: './dash-admin.component.html',
   styleUrls: ['./dash-admin.component.css'],
 })
-export class DashAdminComponent implements OnInit {
+export class DashAdminComponent implements OnInit, OnDestroy {
   @ViewChild('performanceChart', { static: true })
   performanceChartRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('servicesChart', { static: true })
   servicesChartRef!: ElementRef<HTMLCanvasElement>;
 
-  // Raw job data fetched from the API
   jobs: Job[] = [];
-  // private performanceChart: Chart | null = null;
-  private servicesChart: Chart | null = null;
-
-  private performanceChart!: Chart<'bar'>; // Store the chart instance
-  // Aggregated technician data for the table
   tecnicos: TecnicoSummary[] = [];
-
   cuadrillaReport: CuadrillaReport[] = [];
   tecnico: Tecnico[] = [];
-  // tecnicos: Tecnico1[] = [];
   cuadrillas: number[] = [];
   cuadrillasList: Cuadrilla[] = [];
-  selectedCuadrilla: string = '0'; //AQUIIIIIIIIIIIIIIIII -> Num de Cuadrilla jarcodiado
+  selectedCuadrilla: string = '0';
   selectedStatus: string = '';
   startDate: string = '';
   endDate: string = '';
-  //other::
   averagePoints: number = 0;
   completionRate: number = 0;
   totalJobs: number = 0;
+
+  private performanceChart: Chart<'bar'> | null = null;
+  private servicesChart: Chart<'pie'> | null = null;
+
+  serviceSummary: { [key: string]: number } = {};
 
   constructor(private userService: ApiService) {}
 
   ngOnInit(): void {
     this.loadData();
-    // Initialize charts after data is loaded
-    // Moved initCharts() inside loadData after data is ready
+  }
+
+  ngOnDestroy(): void {
+    if (this.performanceChart) {
+      this.performanceChart.destroy();
+    }
+    if (this.servicesChart) {
+      this.servicesChart.destroy();
+    }
   }
 
   loadData(): void {
-    // Fetch the list of cuadrillas
     this.userService.getAllCuadrillas().subscribe({
       next: (response: Cuadrilla[]) => {
         this.cuadrillasList = response;
         console.log('Cuadrillas List:', this.cuadrillasList);
 
-        console.log(
-          'lo que vale this.selectedCuadrilla ==> ',
-          this.selectedCuadrilla
-        );
-
-        console.log(
-          'this.cuadrillasList[this.selectedCuadrilla].idCuadrilla==>>',
-          this.cuadrillasList[Number(this.selectedCuadrilla)].idCuadrilla
-        );
-
         if (this.cuadrillasList.length > 0) {
           this.selectedCuadrilla =
-            this.cuadrillasList[Number(this.selectedCuadrilla)].idCuadrilla; // Asume que Cuadrilla tiene una propiedad 'id'
+            this.cuadrillasList[Number(this.selectedCuadrilla)].idCuadrilla;
         }
       },
       error: (error) => {
@@ -111,25 +107,19 @@ export class DashAdminComponent implements OnInit {
       },
     });
 
-    // Fetch the list of technicians (jobs data)
     this.userService.getCuadrillaReport(this.selectedCuadrilla).subscribe({
       next: (response: Job[]) => {
         this.jobs = response;
         console.log('Raw Jobs Data:', this.jobs);
 
-        // Aggregate the jobs data per technician
         this.aggregateTecnicosData();
-
-        // Initialize charts after data aggregation
+        this.aggregateServicesData();
         this.initCharts();
       },
       error: (error) => {
         console.error('Error fetching technicians:', error);
       },
     });
-
-    console.log('Raw Jobs Data:', this.jobs);
-    console.log('Aggregated Tecnicos Data:', this.tecnicos);
   }
 
   aggregateTecnicosData(): void {
@@ -139,7 +129,7 @@ export class DashAdminComponent implements OnInit {
     }
 
     const grouped = this.jobs.reduce((acc, job) => {
-      const key = job.numTecnico; // Unique identifier for each technician
+      const key = job.numTecnico;
 
       if (!acc[key]) {
         acc[key] = {
@@ -151,26 +141,45 @@ export class DashAdminComponent implements OnInit {
         };
       }
 
-      // Safely check if 'estatus' exists and is 'Completada'
       if (job.estatus && job.estatus.toLowerCase() === 'completada') {
-        acc[key].TrabajosCompletados += 1; //conteo
+        acc[key].TrabajosCompletados += 1;
       }
 
       return acc;
     }, {} as { [key: number]: TecnicoSummary });
 
-    // Convert the grouped object into an array
     this.tecnicos = Object.values(grouped);
     console.log('Aggregated Tecnicos Data:', this.tecnicos);
 
-    // Populate the 'cuadrillas' array based on unique 'cuadrilla' in 'jobs'
     this.cuadrillas = [...new Set(this.jobs.map((t) => t.cuadrilla))].sort(
       (a, b) => a - b
     );
     console.log('Cuadrillas:', this.cuadrillas);
 
-    // Calculate Key Performance Indicators (KPIs)
     this.calculateKPIs();
+  }
+
+  aggregateServicesData(): void {
+    if (!this.jobs || this.jobs.length === 0) {
+      console.warn('No job data available for aggregation.');
+      return;
+    }
+
+    const totalJobs = this.jobs.length;
+
+    this.serviceSummary = this.jobs.reduce((acc, job) => {
+      if (job.estatus && job.estatus.toLowerCase() === 'completada') {
+        const service = job.servicio;
+        acc[service] = (acc[service] || 0) + 1;
+      }
+      return acc;
+    }, {} as { [key: string]: number });
+
+    Object.keys(this.serviceSummary).forEach((key) => {
+      this.serviceSummary[key] = (this.serviceSummary[key] / totalJobs) * 100;
+    });
+
+    console.log('Service Summary:', this.serviceSummary);
   }
 
   calculateKPIs(): void {
@@ -181,22 +190,18 @@ export class DashAdminComponent implements OnInit {
       return;
     }
 
-    // Total completed jobs across all technicians
     this.totalJobs = this.tecnicos.reduce(
       (sum, tecnico) => sum + tecnico.TrabajosCompletados,
       0
     );
 
-    // Average points per technician
     this.averagePoints =
       this.tecnicos.reduce(
         (sum, tecnico) => sum + tecnico.TotalPuntosPorTecnico,
         0
       ) / this.tecnicos.length;
 
-    // Example calculation for completion rate
-    // Adjust the denominator based on your actual logic or requirements
-    this.completionRate = this.totalJobs / (this.totalJobs + 3); // Example logic
+    this.completionRate = this.totalJobs / (this.totalJobs + 3);
 
     console.log('KPIs - Average Points:', this.averagePoints);
     console.log('KPIs - Completion Rate:', this.completionRate);
@@ -249,38 +254,51 @@ export class DashAdminComponent implements OnInit {
   initServicesChart(): void {
     const ctx = this.servicesChartRef.nativeElement.getContext('2d');
     if (ctx) {
+      if (this.servicesChart) {
+        this.servicesChart.destroy();
+      }
       const config: ChartConfiguration<'pie'> = {
         type: 'pie',
         data: {
-          labels: [
-            'TELEFONIA FIJA LIMITADA',
-            'TELEFONIA MÓVIL PAQUETE 300',
-            'INTERNET RESIDENCIAL 1GB',
-          ],
+          labels: Object.keys(this.serviceSummary),
           datasets: [
             {
-              data: [30, 50, 20], // Adjust based on your actual data
-              backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+              data: Object.values(this.serviceSummary),
+              backgroundColor: [
+                'rgba(76, 175, 80, .8)', // Verde medio
+                'rgba(255, 213, 79, .8)', // Amarillo dorado
+                'rgba(126, 87, 194, .8)', // Morado medio
+                'rgba(239, 83, 80, .8)', // Rojo medio
+                'rgba(236, 64, 122, .8)', // Rosa medio
+                'rgba(66, 165, 245, .8)', // Azul medio
+                'rgba(255, 112, 67, .8)', // Naranja medio
+                'rgba(216, 27, 96, .8)', // Fucsia medio
+              ],
             },
           ],
         },
         options: {
           responsive: true,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const label = context.label || '';
+                  const value = context.parsed || 0;
+                  return `${label}: ${value.toFixed(2)}%`;
+                },
+              },
+            },
+          },
         },
       };
-      new Chart(ctx, config);
+      this.servicesChart = new Chart(ctx, config);
     }
   }
 
   applyFilters(): void {
-    console.log(
-      'Aplicando filtros:',
-      this.selectedCuadrilla
-      // this.selectedStatus,
-      // this.startDate,
-      // this.endDate
-    );
-    this.loadData(); // aplicar de nuevo
+    console.log('Aplicando filtros:', this.selectedCuadrilla);
+    this.loadData();
 
     this.userService.getCuadrillaReport(this.selectedCuadrilla).subscribe({
       next: (response: CuadrillaReport[]) => {
