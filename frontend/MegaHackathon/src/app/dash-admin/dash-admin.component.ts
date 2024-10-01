@@ -37,6 +37,7 @@ interface TecnicoSummary {
   Cuadrilla: number;
   TotalPuntosPorTecnico: number;
   TrabajosCompletados: number;
+  BonoSemanal: number;
 }
 
 @Component({
@@ -128,6 +129,7 @@ export class DashAdminComponent implements OnInit {
           Cuadrilla: job.cuadrilla,
           TotalPuntosPorTecnico: job.totalPuntosPorTecnico,
           TrabajosCompletados: 0,
+          BonoSemanal: 0
         };
       }
 
