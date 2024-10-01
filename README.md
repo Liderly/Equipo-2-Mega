@@ -132,8 +132,9 @@ Desarrollado en Angular 18, el frontend ofrece una interfaz de usuario intuitiva
 
 ---
 
-## 👨‍💻 👨‍💻 👨‍💻 👨‍💻 <span style="color: #0366d6;">INTEGRANTES DEL EQUIPO</span>
-| [<img src="https://avatars.githubusercontent.com/u/odnxmrx?v=4" width=115><br><sub>Armando Pineda Gama</sub>](https://github.com/odnxmrx) | [<img src="https://avatars.githubusercontent.com/u/EmmanuelDev97?v=4" width=115><br><sub>Emmanuel Salcedo Davalos</sub>](https://github.com/EmmanuelDev97) | [<img src="https://avatars.githubusercontent.com/u/175587873?v=4" width=115><br><sub>K. Julieta Jiménez García</sub>](https://github.com/Julieta171) | [<img src="https://avatars.githubusercontent.com/u/javixlive?v=4" width=115><br><sub>Javier Montaño Rodriguez</sub>](https://github.com/javixlive) |
+## 👨‍💻 👨‍💻  <span style="color: #0366d6;">INTEGRANTES DEL EQUIPO</span> 👨‍💻 👨‍💻
+
+| [<img src="https://github.com/user-attachments/assets/39a7acad-f3d8-4e1e-9815-963e2188dcd0" width=115><br><sub>Armando Pineda Gama</sub>](https://github.com/odnxmrx) | [<img src="https://github.com/user-attachments/assets/1d16b82e-dd17-4c9f-931b-0ffb6e0798cc" width=115><br><sub>Emmanuel Salcedo Davalos</sub>](https://github.com/EmmanuelDev97) | [<img src="https://github.com/user-attachments/assets/2e3de00f-2ebf-4241-b834-424683f4b7dc" width=115><br><sub>K. Julieta Jiménez García</sub>](https://github.com/Julieta171) | [<img src="https://github.com/user-attachments/assets/baebde77-09ca-4008-b122-20f6c9b847cb" width=115><br><sub>Javier Montaño Rodriguez</sub>](https://github.com/javixlive) |
 | :---: | :---: | :---: | :---: |
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
