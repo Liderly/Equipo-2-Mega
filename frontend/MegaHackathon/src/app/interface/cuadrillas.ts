@@ -11,7 +11,9 @@ export interface CuadrillaReport {
     nombreSuscriptor:string,
     fecha:Date,
     valorPago:number
-
-
-
+    puntosTotales: number;
+    bonoSemanal: number;
+  
 }
+
+

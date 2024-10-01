@@ -36,7 +36,6 @@ export class DashAdminComponent implements OnInit {
   selectedStatus: string = '';
   startDate: string = '';
   endDate: string = '';
-
   averagePoints: number = 0;
   completionRate: number = 0;
   totalJobs: number = 0;
@@ -68,7 +67,7 @@ export class DashAdminComponent implements OnInit {
       }
     })
     //TODO: arreglar sort
-    this.cuadrillas = [...new Set(this.tecnico.map((t) => t.idCuadrilla))].sort();
+    this.cuadrillas = [...new Set(this.tecnico.map((t) => t.idCuadrilla))].sort((a, b) => a - b);
     this.calculateKPIs();
   }
 
@@ -98,33 +97,50 @@ export class DashAdminComponent implements OnInit {
     this.createServicesChart();
   }
 
-  createPerformanceChart(): void {
-    const ctx = this.performanceChartRef.nativeElement.getContext('2d');
-    if (ctx) {
-      const config: ChartConfiguration<'bar'> = {
-        type: 'bar',
-        data: {
-          labels: this.tecnicos.map((t) => t.nombreTecnico),
-          datasets: [
-            {
-              label: 'Puntos Generados',
-              data: this.tecnicos.map((t) => t.TotalPuntosPorTecnico),
-              backgroundColor: 'rgba(75, 192, 192, 0.6)',
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
+ createPerformanceChart(): void {
+  const ctx = this.performanceChartRef.nativeElement.getContext('2d');
+  if (ctx) {
+    // Asumimos que this.cuadrillaReport contiene los datos que vemos en la consola
+    const technicians = this.cuadrillaReport.map(item => ({
+      numTecnico: item.numTecnico,
+      nombreTecnico: item.nombreTecnico,
+      puntosTotales: item.puntosTotales,
+      bonoSemanal: item.bonoSemanal
+    }));
+
+    const config: ChartConfiguration<'bar'> = {
+      type: 'bar',
+      data: {
+        labels: technicians.map(t => `${t.numTecnico} - ${t.nombreTecnico}`),
+        datasets: [
+          {
+            label: 'Puntos Generados',
+            data: technicians.map(t => t.puntosTotales),
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          },
+          {
+            label: 'Bono Semanal',
+            data: technicians.map(t => t.bonoSemanal),
+            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+          }
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            stacked: false,
+          },
+          y: {
+            beginAtZero: true,
+            stacked: false,
           },
         },
-      };
-      new Chart(ctx, config);
-    }
+      },
+    };
+    new Chart(ctx, config);
   }
+}
 
   createServicesChart(): void {
     const ctx = this.servicesChartRef.nativeElement.getContext('2d');
@@ -160,6 +176,7 @@ export class DashAdminComponent implements OnInit {
       // this.startDate,
       // this.endDate
     );
+    
     this.userService.getCuadrillaReport(Number(this.selectedCuadrilla)).subscribe({
       next: (response: CuadrillaReport[]) => {
         this.cuadrillaReport = response;
