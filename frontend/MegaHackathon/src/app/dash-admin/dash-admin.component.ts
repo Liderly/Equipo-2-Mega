@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Chart, ChartConfiguration, } from 'chart.js/auto';
 
 import { ApiService } from '../services/service'
+import { CuadrillaReport } from '../interface/cuadrillas';
 import { Tecnico } from '../interface/tecnico'
 import { HeaderComponent } from '../header/header.component';
 
@@ -27,6 +28,7 @@ export class DashAdminComponent implements OnInit {
   @ViewChild('servicesChart', { static: true })
   servicesChartRef!: ElementRef<HTMLCanvasElement>;
 
+  cuadrillaReport: CuadrillaReport[] = [];
   tecnico: Tecnico[] = [];
   tecnicos: Tecnico1[] = [];
   cuadrillas: number[] = [];
@@ -58,33 +60,29 @@ export class DashAdminComponent implements OnInit {
   }
 
   loadData(): void {
-    // Aquí cargarías los datos reales de tu servicio o API
-    this.tecnicos = [
-      {
-        nombreTecnico: 'Fernando Romero',
-        Cuadrilla: 2,
-        TotalPuntosPorTecnico: 670,
-        TrabajosCompletados: 6,
-      },
-      {
-        nombreTecnico: 'Sofia Castro',
-        Cuadrilla: 2,
-        TotalPuntosPorTecnico: 670,
-        TrabajosCompletados: 6,
-      },
-      {
-        nombreTecnico: 'Andrés Fernández',
-        Cuadrilla: 2,
-        TotalPuntosPorTecnico: 670,
-        TrabajosCompletados: 7,
-      },
-    ];
 
-    this.cuadrillas = [...new Set(this.tecnicos.map((t) => t.Cuadrilla))];
+    this.userService.getTecnicos().subscribe({
+      next: (response: Tecnico[]) => {
+        this.tecnico = response;
+        console.log(this.tecnico)
+      }
+    })
+    //TODO: arreglar sort
+    this.cuadrillas = [...new Set(this.tecnico.map((t) => t.idCuadrilla))].sort();
     this.calculateKPIs();
   }
 
+   
   calculateKPIs(): void {
+
+    //peticion de cuadrilals
+    // this.userService.getCuadrillaReport(this.).subscribe({
+    //   next: (response: CuadrillaReport[]) => {
+    //     this.cuadrillaReport = response;
+    //     console.log(this.cuadrillaReport)
+    //   }
+    // })
+
     this.averagePoints =
       this.tecnicos.reduce((sum, t) => sum + t.TotalPuntosPorTecnico, 0) /
       this.tecnicos.length;
@@ -158,10 +156,17 @@ export class DashAdminComponent implements OnInit {
     console.log(
       'Aplicando filtros:',
       this.selectedCuadrilla,
-      this.selectedStatus,
-      this.startDate,
-      this.endDate
+      // this.selectedStatus,
+      // this.startDate,
+      // this.endDate
     );
+    this.userService.getCuadrillaReport(Number(this.selectedCuadrilla)).subscribe({
+      next: (response: CuadrillaReport[]) => {
+        this.cuadrillaReport = response;
+        console.log([...new Set(this.cuadrillaReport)])
+        console.log(this.cuadrillaReport)
+      }
+    })
   }
 
   exportData(): void {
