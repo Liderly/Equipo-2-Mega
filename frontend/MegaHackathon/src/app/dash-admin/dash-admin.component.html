@@ -5,7 +5,15 @@
 
   <!-- Filtros -->
   <div class="mb-6 flex flex-wrap gap-4">
-    <select
+    <select [(ngModel)]="selectedCuadrilla" (ngModelChange)="applyFilters()">
+      <option
+        *ngFor="let cuadrilla of cuadrillasList"
+        [value]="cuadrilla.noCuadrilla"
+      >
+        Cuadrilla {{ cuadrilla.noCuadrilla }}
+      </option>
+    </select>
+    <!-- <select
       [(ngModel)]="selectedCuadrilla"
       (change)="applyFilters()"
       class="p-2 border rounded"
@@ -17,7 +25,7 @@
       >
         Cuadrilla {{ cuadrilla.noCuadrilla }}
       </option>
-    </select>
+    </select> -->
     <select
       [(ngModel)]="selectedStatus"
       (change)="applyFilters()"

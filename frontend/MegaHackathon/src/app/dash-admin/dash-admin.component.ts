@@ -55,7 +55,10 @@ export class DashAdminComponent implements OnInit {
 
   // Raw job data fetched from the API
   jobs: Job[] = [];
+  // private performanceChart: Chart | null = null;
+  private servicesChart: Chart | null = null;
 
+  private performanceChart!: Chart<'bar'>; // Store the chart instance
   // Aggregated technician data for the table
   tecnicos: TecnicoSummary[] = [];
 
@@ -64,7 +67,7 @@ export class DashAdminComponent implements OnInit {
   // tecnicos: Tecnico1[] = [];
   cuadrillas: number[] = [];
   cuadrillasList: Cuadrilla[] = [];
-  selectedCuadrilla: number = 4; //AQUIIIIIIIIIIIIIIIII -> Num de Cuadrilla jarcodiado
+  selectedCuadrilla: string = '0'; //AQUIIIIIIIIIIIIIIIII -> Num de Cuadrilla jarcodiado
   selectedStatus: string = '';
   startDate: string = '';
   endDate: string = '';
@@ -86,7 +89,22 @@ export class DashAdminComponent implements OnInit {
     this.userService.getAllCuadrillas().subscribe({
       next: (response: Cuadrilla[]) => {
         this.cuadrillasList = response;
-        // console.log('Cuadrillas List:', this.cuadrillasList);
+        console.log('Cuadrillas List:', this.cuadrillasList);
+
+        console.log(
+          'lo que vale this.selectedCuadrilla ==> ',
+          this.selectedCuadrilla
+        );
+
+        console.log(
+          'this.cuadrillasList[this.selectedCuadrilla].idCuadrilla==>>',
+          this.cuadrillasList[Number(this.selectedCuadrilla)].idCuadrilla
+        );
+
+        if (this.cuadrillasList.length > 0) {
+          this.selectedCuadrilla =
+            this.cuadrillasList[Number(this.selectedCuadrilla)].idCuadrilla; // Asume que Cuadrilla tiene una propiedad 'id'
+        }
       },
       error: (error) => {
         console.error('Error fetching cuadrillas:', error);
@@ -186,13 +204,17 @@ export class DashAdminComponent implements OnInit {
   }
 
   initCharts(): void {
-    this.createPerformanceChart();
-    this.createServicesChart();
+    this.initPerformanceChart();
+    this.initServicesChart();
   }
 
-  createPerformanceChart(): void {
+  initPerformanceChart(): void {
     const ctx = this.performanceChartRef.nativeElement.getContext('2d');
     if (ctx) {
+      if (this.performanceChart) {
+        this.performanceChart.destroy();
+      }
+
       const config: ChartConfiguration<'bar'> = {
         type: 'bar',
         data: {
@@ -219,11 +241,12 @@ export class DashAdminComponent implements OnInit {
           },
         },
       };
-      new Chart(ctx, config);
+
+      this.performanceChart = new Chart(ctx, config);
     }
   }
 
-  createServicesChart(): void {
+  initServicesChart(): void {
     const ctx = this.servicesChartRef.nativeElement.getContext('2d');
     if (ctx) {
       const config: ChartConfiguration<'pie'> = {
@@ -257,16 +280,15 @@ export class DashAdminComponent implements OnInit {
       // this.startDate,
       // this.endDate
     );
+    this.loadData(); // aplicar de nuevo
 
-    this.userService
-      .getCuadrillaReport(Number(this.selectedCuadrilla))
-      .subscribe({
-        next: (response: CuadrillaReport[]) => {
-          this.cuadrillaReport = response;
-          console.log([...new Set(this.cuadrillaReport)]);
-          console.log('cuadrillaReport ==>>>>', this.cuadrillaReport);
-        },
-      });
+    this.userService.getCuadrillaReport(this.selectedCuadrilla).subscribe({
+      next: (response: CuadrillaReport[]) => {
+        this.cuadrillaReport = response;
+        console.log([...new Set(this.cuadrillaReport)]);
+        console.log('cuadrillaReport ==>>>>', this.cuadrillaReport);
+      },
+    });
   }
 
   exportData(): void {

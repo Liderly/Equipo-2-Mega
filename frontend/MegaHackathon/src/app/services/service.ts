@@ -55,7 +55,8 @@ export class ApiService {
   }
   //Reports
   //Cuadrilla
-  getCuadrillaReport(id: number): Observable<any> {
+  getCuadrillaReport(id: string): Observable<any> {
+    //got 'id' as number
     return this.http.get(`${this.apiUrl}/Cuadrillareport/${id}`);
   }
 
