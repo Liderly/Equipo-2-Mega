@@ -29,15 +29,15 @@ Elaborar un informe detallado para el procesamiento de pagos de puntos acumulado
 ## 🗄️ <span style="color: #0366d6;">Base de datos</span>
 
 ### <span style="color: #0366d6;">Características Principales</span>
-
-1. **Estructura de Tablas:** 
-   - Tecnicos, Cuadrillas, Clientes, Trabajo, Orden trabajo, Estatus, Rango, Bono, Puntajes, etc.
+1. **Normalización de la Base de Datos**
+2. **Estructura de Tablas:** 
+   - Tecnicos, Cuadrillas, Clientes, Trabajo, Orden trabajo, Servicios,Estatus, Rango, Bono y Puntajes.
    - Relaciones definidas para mantener la integridad referencial.
 
-2. **Procedimientos Almacenados:** 
+3. **Procedimientos Almacenados:** 
    - Operaciones comunes como trabajos por cuadrillas y cálculo de bonos.
 
-3. **Índices y Claves:** 
+4. **Índices y Claves:** 
    - Optimización del rendimiento de consultas.
    - Aseguramiento de la integridad de datos.
 
