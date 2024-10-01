@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project.Models.Entities
 {
     [Keyless]
     public class Cuadrillas
     {
-        public int Id {  get; set; }
-        public int IdTecnico {  get; set; }
+        [Key]
+        public int IDCuadrilla {  get; set; }
+        public int NoCuadrilla {  get; set; }
 
     }
 }
