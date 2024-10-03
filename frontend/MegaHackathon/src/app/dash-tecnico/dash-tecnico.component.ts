@@ -73,7 +73,7 @@ export class DashTecnicoComponent implements OnInit {
     },
     {
       title: 'Nuevos Clientes',
-      value: '2',
+      value: '1',
       icon: 'fa-user-plus',
       color: 'bg-orange-600',
     },
@@ -121,7 +121,7 @@ export class DashTecnicoComponent implements OnInit {
             },
             {
               title: 'Nuevos Clientes',
-              value: '2',
+              value: '1',
               icon: 'fa-user-plus',
               color: 'bg-orange-600',
             },
